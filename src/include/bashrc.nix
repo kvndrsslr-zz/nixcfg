@@ -63,7 +63,7 @@
       vim()     {
         case "$1" in
           "") ${vimHugeX}/bin/vim . ;;
-          *) ${vimHugeX}/bin/vim $@ ;;
+          *) ${vimHugeX}/bin/vim "$@" ;;
         esac
       }
 
