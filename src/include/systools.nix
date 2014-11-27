@@ -30,7 +30,6 @@
     acpid
     upower
     smartmontools
-    nix-dev
     tig
     figlet
     manpages
