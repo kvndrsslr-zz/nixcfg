@@ -1,0 +1,309 @@
+syntax on
+filetype indent on
+filetype plugin on
+set nocompatible
+
+colorscheme default
+
+fun VAM()
+	let c = get(g:, 'vim_addon_manager', {})
+	let g:vim_addon_manager = c
+	let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
+	let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+	if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
+		execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
+					\       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+	endif
+
+	call vam#ActivateAddons([
+				\   "github:grwlf/nerdtree"
+				\ , "github:grwlf/cyrvim"
+				\ , "github:grwlf/find.vim"
+				\ , "github:tpope/vim-commentary.git"
+				\ , "github:guns/xterm-color-table.vim"
+				\ , "github:grwlf/vim-addon-urweb"
+				\ , "bufexplorer.zip"
+				\ , "Supertab"
+				\ , "surround"
+				\ , "vim-airline"
+				\ , "a"
+				\ , "grep"
+				\], {'auto_install' : 1})
+endfun
+call VAM()
+
+runtime macros/matchit.vim
+
+let mapleader = "`"
+let maplocalleader = "`"
+
+set guioptions-=m
+set guioptions-=T
+set scrolloff=10
+set tabstop=4
+set nobackup
+set shiftwidth=4
+set noshowmatch
+set showcmd
+set autowrite
+set foldmethod=marker
+set foldcolumn=0
+set backspace=indent,eol,start
+set incsearch
+set ignorecase
+set formatoptions+=roj
+set cinoptions+=g0,(4
+set nohlsearch
+set mouse=nirv
+set laststatus=2
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set tags=tags;
+set encoding=utf-8
+set fileencodings=utf8,cp1251
+set t_Co=256
+set modeline
+set textwidth=80
+set timeoutlen=500
+set directory=/tmp,/var/tmp,.
+set hidden
+set nowrap
+set completeopt=longest,menu
+set smartindent
+set number
+
+" Softwrapping
+" set columns=80
+" au VimResized * if (&columns > 80) | set columns=80 | endif
+" set wrap
+" set linebreak
+" set showbreak=>
+
+au BufEnter * syntax sync minlines=50
+au BufEnter * syntax sync fromstart
+au BufEnter .vimperatorrc set filetype=vim
+au BufEnter *urs set filetype=ur
+
+au BufEnter nixos-config set filetype=nix
+au FileType nix set expandtab shiftwidth=2 tabstop=2
+au FileType nix set commentstring=#\ %s
+au FileType sh set expandtab shiftwidth=2 tabstop=2
+au FileType haskell set expandtab shiftwidth=2 tabstop=2
+au FileType cabal set expandtab
+au FileType python set expandtab
+au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
+au FileType *asciidoc set comments+=fb:*
+au FileType *asciidoc set comments+=fb:.
+
+au FileType *markdown set expandtab shiftwidth=2 tabstop=2
+au FileType *markdown set comments+=fb:*
+au FileType *markdown set comments+=fb:-
+au FileType *markdown set comments+=fb:#.
+
+au FileType ur set commentstring=(*%s*)
+au FileType ur set expandtab shiftwidth=2 tabstop=2
+
+au FileType c set expandtab shiftwidth=2 tabstop=2
+au FileType c set commentstring=//\ %s
+au FileType cpp set expandtab shiftwidth=2 tabstop=2
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+au BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\   exe "normal g`\"" |
+	\ endif
+
+" General bindings
+inoremap <Leader><Leader> <Leader>
+inoremap <Esc><Esc> <Esc>
+
+" Save
+nnoremap <F2> <ESC>:w!<CR>
+inoremap <F2> <ESC>:w!<CR>
+
+" Reformat
+nnoremap <F3> gqap
+inoremap <F3> <C-o>gqap
+vnoremap <F3> gq
+
+" Visual $
+vnoremap $ $h
+
+" Fast command line
+nnoremap ! :!
+
+" Help on word
+map <F1> :exec ":help " . expand('<cword>')<CR>
+
+" Screen
+nnoremap s :!screen<CR>
+
+" Display lines scrolling
+nnoremap j gj
+nnoremap k gk
+nnoremap Y y$
+
+" Quick quit
+map q :quit<CR>
+
+" Paste 1-line visual selection into the command line
+function! SmartColon() range
+	if (a:firstline == a:lastline)
+		call feedkeys("gvy:\<Space>\<C-r>\"\<C-b>",'n')
+	else
+		call feedkeys(":")
+	endif
+endfunction
+vnoremap : :call SmartColon()<CR>
+
+" Easy paste
+nnoremap <Leader>i :set paste<CR>i
+
+" Open quickfix window
+nnoremap <Leader>f :cope<CR>
+
+" Tab key cycles through windows
+noremap <Tab> <C-w>w
+
+" Tabs
+map gr gT
+map tn :tabnew<CR>
+map th :tabnew $HOME<CR>
+
+" Clipboard helpers
+if has("x11")
+	vnoremap "a "ay
+	vnoremap "b "by
+	vnoremap "c "cy
+	vnoremap "d "dy
+	vnoremap "e "yy
+
+	nnoremap "a "ap
+	nnoremap "b "bp
+	nnoremap "c "cp
+	nnoremap "d "dp
+	nnoremap "e "ep
+
+	nnoremap "A "aP
+	nnoremap "B "bP
+	nnoremap "C "cP
+	nnoremap "D "dP
+	nnoremap "E "eP
+
+	vnoremap y "+y
+	vnoremap d "+d
+	vnoremap c "+c
+	vnoremap p "+p
+	nnoremap Y "+y$
+	nnoremap D "+D
+	nnoremap yy "+yy
+	nnoremap yw "+yw
+	nnoremap dd "+dd
+	nnoremap p "+p
+	nnoremap P "+P
+endif
+
+" Quicfix bindings
+function! QFmap(a,b)
+	exe "au BufWinEnter quickfix map <buffer> " . a:a . " " . a:b
+endfunction
+command! -nargs=+ QFmap :call QFmap(<f-args>)
+
+QFmap o <cr>
+QFmap J :cnext<cr>:copen<cr>
+QFmap K :cprevious<cr>:copen<cr>
+QFmap <C-o> :cold<cr>
+QFmap <C-i> :cnew<cr>
+QFmap <Leader>f <C-w>q
+QFmap q :q<cr>
+
+" Readline-style bindings
+" FIXME: Works ok for console version of vim only. They actually maps
+" <Esc><key>. That causes problems in normal mode.
+imap <Esc>f <C-o>e<C-o>a
+cmap <Esc>f <S-Right>
+imap <Esc>b <C-o>b
+cmap <Esc>b <S-Left>
+imap <Esc>d <C-o>ved
+
+" Screen - like bindings
+nmap <Esc>q :tabprev<CR>
+nmap <Esc>й :tabprev<CR>
+imap <Esc>q <C-o>:tabprev<CR>
+imap <Esc>й <C-o>:tabprev<CR>
+nmap <Esc>w :tabnext<CR>
+nmap <Esc>ц :tabnext<CR>
+imap <Esc>w <C-o>:tabnext<CR>
+imap <Esc>ц <C-o>:tabnext<CR>
+nmap <C-a>c :tabnew<CR>
+
+" Wrap encodings on F8
+let g:enc_index = 0
+function! ChangeFileencoding()
+  let encodings = ['cp1251', 'cp866', 'utf-8']
+  execute 'e ++enc='.encodings[g:enc_index].' %:p'
+  echo encodings[g:enc_index]
+  if g:enc_index >= len(encodings)-1
+	  let g:enc_index = 0
+  else
+	  let g:enc_index = g:enc_index + 1
+  endif
+endf
+nmap <F8> :call ChangeFileencoding()<CR>
+
+" Figlet
+command! -nargs=+ Figlet :r! figlet <args>
+
+" Cyrvim
+let g:cyrvim_map_esc = 1
+let g:cyrvim_map_cmd = 1
+let g:cyrvim_map_cmd_esc = 1
+
+" NERDTree settings
+let g:NERDChristmasTree=1
+let g:NERDTreeChDirMode=2
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeWinSize=35
+let g:NERDTreeIgnore=['\.o$', '\.ko$', '^cscope', '\.hi']
+let g:NERDTreeCasadeOpenSingleChildDir=1
+let g:NERDTreeMapQuit='h'
+noremap <F4> <ESC>:NERDTreeFind<CR>
+command -nargs=0 NF :NERDTreeFind
+
+function! NERDTreeOpenTerm(node)
+	let oldcwd = getcwd()
+	call a:node.path.getDir().changeToDir()
+	exec '!screen'
+	exec "cd " . oldcwd
+endfunction
+
+" Airline
+let g:airline_theme="badwolf"
+
+" BufferExplorer
+nnoremap <Leader>e <Esc>:BufExplorer<CR>
+inoremap <Leader>e <Esc>:BufExplorer<CR>
+noremap <Space> <Esc>:BufExplorer<CR>
+
+" EasyGrep
+let g:EasyGrepRecursive = 1
+let g:EasyGrepMode = 2
+
+" Local vimrc
+let g:local_vimrc = '.vimrc_local.vim'
+
+" SuperTab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+" Surround
+xmap s S
+
+" Commentary
+map <C-C> gc
+nmap <C-C> gccj
+
+" Alternate
+let g:alternateExtensions_ur = "urs"
+let g:alternateExtensions_urs = "ur"
