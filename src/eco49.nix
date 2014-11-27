@@ -5,9 +5,18 @@
 { config, pkgs, ... }:
 
 {
+
   imports = [
-    ./hardware-configuration.nix
-  ];
+      /etc/nixos/hardware-configuration.nix
+      ./include/devenv.nix
+      ./include/screenrc.nix
+      ./include/bashrc.nix
+      ./include/systools.nix
+      ./include/security.nix
+      ./include/templatecfg.nix
+      ./include/workusers.nix
+      <nixos/modules/programs/virtualbox.nix>
+    ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -24,6 +33,11 @@
     };
   };
 
+  networking.firewall.enable = false;
+
+  # Europe/Moscow
+  time.timeZone = "Etc/GMT-4";
+
   i18n = {
     consoleFont = "lat9w-16";
     consoleKeyMap = "us";
@@ -31,6 +45,16 @@
   };
 
   services.openssh.enable = true;
+
+  services.ntp.enable = true;
+  services.ntp.servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
+
+  services.openssh.enable = true;
+  services.openssh.ports = [22 2222];
+  services.openssh.permitRootLogin = "yes";
+
+  services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql92;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
