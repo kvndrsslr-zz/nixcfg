@@ -36,7 +36,7 @@
   networking.firewall.enable = false;
 
   # Europe/Moscow
-  time.timeZone = "Etc/GMT-4";
+  time.timeZone = "Europe/Moscow";
 
   i18n = {
     consoleFont = "lat9w-16";
