@@ -29,7 +29,7 @@
   networking.interfaces = {
     enp4s0 = {
      ipAddress = "10.210.0.49";
-     subnetMask = "255.255.0.0"; 
+     prefixLength = 16;
     };
   };
 
@@ -43,8 +43,6 @@
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
-
-  services.openssh.enable = true;
 
   services.ntp.enable = true;
   services.ntp.servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
@@ -71,6 +69,11 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    vim
   ];
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
 }
