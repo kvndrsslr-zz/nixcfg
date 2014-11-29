@@ -91,14 +91,6 @@ rec {
     package = pkgs.postgresql92;
   };
 
-  services."yandex-disk" = {
-    enable = true;
-    user = "grwlf";
-    directory = "/home/Yandex.Disk";
-    username = "ierton";
-    password = import <passwords/yandex_disk>;
-  };
-
   services.xserver = {
     enable = true;
 
@@ -190,6 +182,7 @@ rec {
     pavucontrol
     qbittorrent
     rtorrent
+    firefox
 
     mercurial
     mlton
