@@ -19,12 +19,6 @@ rec {
       <nixos/modules/programs/virtualbox.nix>
     ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
-  #   virtualbox = pkgs.linuxPackages_3_12.virtualbox.override {
-  #     enableExtensionPack = true;
-  #   };
-  # };
-
   boot.kernelPackages = pkgs.linuxPackages_3_12;
 
   boot.blacklistedKernelModules = [
@@ -53,12 +47,10 @@ rec {
     enableAllFirmware = true;
     firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
-    bluetooth5.enable = true;
     pulseaudio.enable = true;
   };
 
-  # Europe/Moscow
-  time.timeZone = "Etc/GMT-4";
+  time.timeZone = "Europe/Moscow";
 
   networking = {
     hostName = "greyblade";
@@ -118,7 +110,6 @@ rec {
 
     desktopManager = {
       xfce.enable = true;
-      # kde4.enable = true;
     };
 
     displayManager = {
@@ -168,13 +159,11 @@ rec {
   };
 
   environment.systemPackages = with pkgs ; [
-    # X11 apps
     unclutter
     xorg.xdpyinfo
     xorg.xinput
     rxvt_unicode
     vimHugeX
-    (firefoxLocaleWrapper "ru")
     glxinfo
     feh
     xcompmgr
@@ -206,11 +195,7 @@ rec {
     mlton
 
     haskell_7_8
-    (devenv {
-      enableCross = false;
-      enableX11 = services.xserver.enable;
-    })
-    # freetype_subpixel
+    (devenv { enableX11 = services.xserver.enable; })
   ];
 
   nixpkgs.config = {
