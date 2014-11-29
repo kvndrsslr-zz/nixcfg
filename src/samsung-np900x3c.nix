@@ -108,14 +108,6 @@ rec {
       lightdm = {
         enable = true;
       };
-      # slim = {
-      #   enable = true;
-      #   autoLogin = true;
-      #   defaultUser = "grwlf";
-      # };
-      # kdm = {
-      #   enable = true;
-      # };
     };
 
     multitouch.enable = false;
