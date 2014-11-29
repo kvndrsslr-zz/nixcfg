@@ -1,7 +1,8 @@
 { config, pkgs, ... } :
 
+with pkgs;
 {
-  services.postfix = with pkgs; {
+  services.postfix = {
     enable = true;
     setSendmail = true;
 
@@ -17,16 +18,15 @@
       smtp_sasl_password_maps=hash:/etc/postfix.local/sasl_passwd
       smtp_sasl_security_options=noanonymous
     '';
-
-    extraInit =
-      let
-          saslpwd = callPackage ./sasl_passwd.nix {};
-      in ''
-        ${coreutils}/bin/mkdir -pv /etc/postfix.local
-        ${coreutils}/bin/cp ${saslpwd}/sasl_passwd /etc/postfix.local/sasl_passwd
-        ${postfix}/sbin/postmap /etc/postfix.local/sasl_passwd
-      '';
   };
 
+  jobs.postfix.preStart =
+    let
+        saslpwd = callPackage ./sasl_passwd.nix {};
+    in ''
+      ${coreutils}/bin/mkdir -pv /etc/postfix.local
+      ${coreutils}/bin/cp ${saslpwd}/sasl_passwd /etc/postfix.local/sasl_passwd
+      ${postfix}/sbin/postmap /etc/postfix.local/sasl_passwd
+    '';
 }
 
