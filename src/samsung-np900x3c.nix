@@ -181,6 +181,8 @@ rec {
 
     haskell_7_8
     (devenv { enableX11 = services.xserver.enable; })
+    imagemagick
+    smplayer
   ];
 
   nixpkgs.config = {
