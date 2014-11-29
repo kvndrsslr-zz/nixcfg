@@ -40,8 +40,7 @@
     device = "/dev/sda";
   };
 
-  # Europe/Moscow
-  time.timeZone = "Etc/GMT-4";
+  time.timeZone = "Europe/Moscow";
 
   networking = {
     hostName = "goodfellow";
@@ -128,7 +127,7 @@
     # X11 apps
     rxvt_unicode
     vimHugeX
-    (firefoxLocaleWrapper "ru")
+    firefox
     glxinfo
     feh
     xcompmgr
@@ -151,7 +150,6 @@
     vlc
     easytag
     gimp_2_8
-    # mirage
     geeqie
     viewnior
     xfce.xfce4_xkb_plugin
