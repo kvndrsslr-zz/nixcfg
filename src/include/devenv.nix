@@ -8,13 +8,6 @@
 
       devenv = { enableCross ? false , enableX11 ? false } : let
 
-        # myEnvFun2 = import ../../pkgs/misc/my-env {
-        #   inherit (pkgs) substituteAll;
-        #   inherit (pkgs) pkgs;
-        #   inherit (pkgs.stdenv) mkDerivation;
-        #   gcc = pkgs.gcc47;
-        # };
-
         common = with pkgs; [
           autoconf
           automake
