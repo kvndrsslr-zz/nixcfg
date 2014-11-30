@@ -32,6 +32,8 @@
           gtk_doc
           glib
           gdb
+          gmp
+          mpfr
         ];
 
         x11 = with pkgs ; [
