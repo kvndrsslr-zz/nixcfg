@@ -2,7 +2,7 @@
 {
   security = {
     sudo.configFile = ''
-      Defaults:root,%wheel env_keep+=NIX_DEV_ROOT
+      Defaults:root,%wheel env_keep+=NIX_PATH
     '';
   };
 
