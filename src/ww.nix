@@ -3,13 +3,6 @@
 
 { config, pkgs, ... }:
 
-let
-  ffloc = language : pkgs.callPackage ./pkgs/firefoxLocaleWrapper.nix {
-    inherit language;
-  };
-
-in
-
 rec {
   require = [
       /etc/nixos/hardware-configuration.nix
@@ -61,8 +54,7 @@ rec {
     defaultLocale = "ru_RU.UTF-8";
   };
 
-  # Europe/Moscow
-  time.timeZone = "Etc/GMT-4";
+  time.timeZone = "Europe/Moscow";
 
   networking = {
     hostName = "ww";
@@ -144,8 +136,7 @@ rec {
     xorg.xinput
     rxvt_unicode
     vimHugeX
-    # (firefoxLocaleWrapper "ru")
-    (ffloc "ru")
+    firefox
     glxinfo
     feh
     xcompmgr
@@ -166,23 +157,31 @@ rec {
     vlc
     libreoffice
     pidgin
-    # gimp_2_8
     skype
     networkmanagerapplet
     cups
 
     haskell_7_8
-    (devenv {
-      enableCross = false;
-      enableX11 = services.xserver.enable;
-    })
-    /* freetype_subpixel */
+    (devenv { enableX11 = services.xserver.enable; })
 
     mercurial
     unetbootin
     manpages
     socat
     dmidecode
+    xscreensaver
+    wireshark
+    tig
+    pv
+    mlton
+    minicom
+    lsof
+    i7z
+    hdparm
+    ruby
+    pv
+    figlet
+    bvi
   ];
 
   nixpkgs.config = {
