@@ -72,6 +72,7 @@
     wget
     git
     vimHugeX
+    minicom
   ];
 
   nixpkgs.config = {
