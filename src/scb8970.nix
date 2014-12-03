@@ -28,6 +28,13 @@
     };
   };
 
+  networking.firewall.enable = false;
+
+  services.openssh.enable = true;
+  services.openssh.ports = [22 2222];
+  services.openssh.permitRootLogin = "yes";
+
+
   # Select internationalisation properties.
   # i18n = {
   #   consoleFont = "lat9w-16";
@@ -44,9 +51,6 @@
   ];
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
