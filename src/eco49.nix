@@ -54,6 +54,8 @@
   services.postgresql.enable = true;
   services.postgresql.package = pkgs.postgresql92;
 
+  services.xserver.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
   #   name = "guest";
@@ -69,7 +71,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    vim
+    vimHugeX
   ];
 
   nixpkgs.config = {
