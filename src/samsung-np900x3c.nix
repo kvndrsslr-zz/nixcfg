@@ -174,7 +174,7 @@ rec {
     pavucontrol
     qbittorrent
     rtorrent
-    firefox
+    firefoxWrapper
 
     mercurial
     mlton

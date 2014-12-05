@@ -127,7 +127,7 @@
     # X11 apps
     rxvt_unicode
     vimHugeX
-    firefox
+    firefoxWrapper
     glxinfo
     feh
     xcompmgr
