@@ -1,0 +1,36 @@
+diff -ru xfce4-xkb-plugin-0.5.6.orig/panel-plugin/xfce4-xkb-plugin.c xfce4-xkb-plugin-0.5.6/panel-plugin/xfce4-xkb-plugin.c
+--- xfce4-xkb-plugin-0.5.6.orig/panel-plugin/xfce4-xkb-plugin.c	2014-08-18 00:35:49.807833645 +0400
++++ xfce4-xkb-plugin-0.5.6/panel-plugin/xfce4-xkb-plugin.c	2014-08-18 00:37:59.462027713 +0400
+@@ -361,7 +361,8 @@
+             }
+             else
+             {
+-                xkb->hsize = (int) (1.33 * panel_size);
++                // xkb->hsize = (int) (1.33 * panel_size);
++                xkb->hsize = (int) (0.9 * panel_size);
+             }
+ 
+             gtk_widget_set_size_request (xkb->btn, xkb->hsize, xkb->vsize);
+diff -ru xfce4-xkb-plugin-0.5.6.orig/panel-plugin/xkb-util.c xfce4-xkb-plugin-0.5.6/panel-plugin/xkb-util.c
+--- xfce4-xkb-plugin-0.5.6.orig/panel-plugin/xkb-util.c	2014-08-18 00:35:49.807833645 +0400
++++ xfce4-xkb-plugin-0.5.6/panel-plugin/xkb-util.c	2014-08-18 00:38:48.467479095 +0400
+@@ -33,12 +33,18 @@
+ gchar*
+ xkb_util_get_flag_filename (const gchar* group_name)
+ {
++    gchar* group_name_;
+     gchar* filename;
+ 
+     if (!group_name)
+         return NULL;
+ 
+-    filename = g_strconcat (FLAGSDIR, "/", group_name, ".svg", NULL);
++    if(strcmp(group_name,"us") == 0)
++        group_name_ = "gb";
++    else
++        group_name_ = group_name;
++
++    filename = g_strconcat (FLAGSDIR, "/", group_name_, ".svg", NULL);
+ 
+     return filename;
+ }
