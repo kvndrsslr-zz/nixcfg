@@ -11,22 +11,12 @@
     ./include/fonts.nix
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
+    ./include/xfce-overrides.nix
+    ./include/firefox-with-localization.nix
     /etc/nixos/hardware-configuration.nix
   ];
 
   hardware.pulseaudio.enable = true;
-
-  #boot.initrd.kernelModules = [
-  #  "uhci_hcd" "ehci_hcd" "ahci"
-  #];
-
-  #boot.kernelModules = [
-  #  "acpi-cpufreq" "configs"
-  #];
-
-  #boot.extraModprobeConfig = ''
-  #  options snd-hda-intel model="ideapad"
-  #'';
 
   boot.extraKernelParams = [
     # SSD-friendly
@@ -127,7 +117,6 @@
     # X11 apps
     rxvt_unicode
     vimHugeX
-    firefoxWrapper
     glxinfo
     feh
     xcompmgr
@@ -162,8 +151,6 @@
     allowUnfree = true;
     chrome.enableRealPlayer = true;
     chrome.jre = true;
-    firefox.enableRealPlayer = true;
-    firefox.jre = true;
   };
 }
 

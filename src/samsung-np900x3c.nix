@@ -17,6 +17,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
+      ./include/firefox-with-localization.nix
       <nixos/modules/programs/virtualbox.nix>
     ];
 
@@ -175,7 +176,6 @@ rec {
     pavucontrol
     qbittorrent
     rtorrent
-    firefoxWrapper
 
     mercurial
     mlton
@@ -189,10 +189,6 @@ rec {
   nixpkgs.config = {
     allowUnfree = true;
     chrome = {
-      jre = true;
-      enableAdobeFlash = true;
-    };
-    firefox = {
       jre = true;
       enableAdobeFlash = true;
     };
