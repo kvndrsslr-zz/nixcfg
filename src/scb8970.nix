@@ -41,10 +41,12 @@
   services.ntp.enable = true;
   services.ntp.servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
 
+  services.xserver.enable = true;
+
   environment.systemPackages = with pkgs; [
     wget
-    git
-    vim
+    gitFull
+    vimHugeX
   ];
 
   nixpkgs.config = {
