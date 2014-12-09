@@ -22,6 +22,7 @@ fun VAM()
 				\ , "github:tpope/vim-commentary.git"
 				\ , "github:guns/xterm-color-table.vim"
 				\ , "github:grwlf/vim-addon-urweb"
+				\ , "github:embear/vim-localvimrc"
 				\ , "bufexplorer.zip"
 				\ , "Supertab"
 				\ , "surround"
@@ -290,6 +291,11 @@ noremap <Space> <Esc>:BufExplorer<CR>
 let g:EasyGrepRecursive = 1
 let g:EasyGrepMode = 2
 
+" G[rep]
+let g:CGrepMask = "**/*c **/*h **/*cpp **/*hpp"
+let g:MyGrepMask = g:CGrepMask
+command! -nargs=+ G :execute ('copen | vimgrep <args> ' . g:MyGrepMask )
+
 " Local vimrc
 let g:local_vimrc = '.vimrc_local.vim'
 
@@ -307,3 +313,7 @@ nmap <C-C> gccj
 " Alternate
 let g:alternateExtensions_ur = "urs"
 let g:alternateExtensions_urs = "ur"
+
+" local-vimrc
+let g:localvimrc_ask = 0
+
