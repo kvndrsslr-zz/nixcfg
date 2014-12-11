@@ -17,6 +17,8 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/workusers.nix
+      ./include/xfce-overrides.nix
+      ./include/firefox-with-localization.nix
       <nixos/modules/programs/virtualbox.nix>
     ];
 
@@ -186,9 +188,6 @@ rec {
 
   nixpkgs.config = {
     allowUnfree = true;
-    chrome.jre = true;
-    firefox.jre = true;
-    firefox.enableAdobeFlash = true;
   };
 
 }
