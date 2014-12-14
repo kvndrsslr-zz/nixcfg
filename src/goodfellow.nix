@@ -137,7 +137,6 @@
     tightvnc
     wine
     vlc
-    easytag
     gimp_2_8
     geeqie
     viewnior
