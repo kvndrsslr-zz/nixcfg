@@ -1,5 +1,5 @@
 { stdenv, bash, writeText, coreutils, gnugrep, gnused, findutils, systemd,
-udisks2, yad }:
+udisks2, yad, imagemagick }:
 let 
   mkscript = path : text : ''
     mkdir -pv `dirname ${path}`
@@ -64,7 +64,7 @@ let
       return 0
     }
 
-	  NFC=0
+    NDEV=0
     for d in $D ; do
       MP=`suremount $d`
       if ! test -n "$MP" ; then
@@ -73,7 +73,9 @@ let
       if ! test -d "$MP" ; then
         continue
       fi
+
       dbg "MP is $MP"
+      NDEV=`expr $NDEV '+' 1`
 
       FILES=``
       N=`$FIND "$MP/DCIM" -iname '*\.jpg' | wc -l`
@@ -86,16 +88,11 @@ let
         echo `expr $i '*' 100 / $N`
 
       done | $YAD --auto-close --progress --text "Идёт копирование"
-
-      if test "$?" = "0" ; then
-        NFC=`expr $NFC '+' 1`
-      fi
-
     done
 
-	if test "$NFC" = "0" ; then
-	  die "Не найдено ни одного USB устройсва"
-	fi
+    if test "$NDEV" = "0" ; then
+      die "Не найдено ни одного USB устройсва"
+    fi
   '';
 
   mv = mkscript "$out/bin/photomove" ''
@@ -135,6 +132,33 @@ let
 
   '';
 
+  binfind = "${findutils}/bin/find";
+  binyad = "${yad}/bin/yad";
+  binconvert = "${imagemagick}/bin/convert";
+
+  rsz = mkscript "$out/bin/photoresize" ''
+    err() { ${binyad} --image  "dialog-error"  --title  "Alert" --button=gtk-ok:0 --text  "$@" ; }
+    dbg() { echo $@ >&2; }
+    die() { err "$@" ; exit 1; }
+    diec() { echo "$@" >&2; exit 1; }
+
+    findimg() {
+      ${binfind} . -maxdepth 1 -iname '*\.jpg'
+    }
+
+    i=0
+    N=`findimg | wc -l`
+    if test "$N" = "0" ; then
+      die "Ни одной фотографии (файл.JPG) не найдено в этой папке"
+    fi
+
+    findimg | while read f ; do
+      ${binconvert} -resize 800x600 "$f" "$f.small" && mv "$f.small" "$f"
+      i=`expr $i + 1`
+      echo `expr $i '*' 100 / $N`
+    done | ${binyad} --auto-close --progress --text "Уменьшение до 800x600"
+  '';
+
 in
 stdenv.mkDerivation {
   name = "photofetcher-1.0";
@@ -143,6 +167,7 @@ stdenv.mkDerivation {
     . $stdenv/setup
     ${ff}
     ${mv}
+    ${rsz}
   '';
 
   meta = {

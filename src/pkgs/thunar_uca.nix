@@ -75,6 +75,18 @@ writeText "uca.xml.in" ''
       <image-files/>
       <video-files/>
     </action>
+    <action>
+      <icon>gtk-find</icon>
+      <name>Уменьшить фотографии в этом каталоге</name>
+      <unique-id>1389351656678468-10</unique-id>
+      <command>photoresize %F</command>
+      <description>Уменьшает все фотографии в этом каталоге</description>
+      <patterns>*</patterns>
+      <directories/>
+      <audio-files/>
+      <image-files/>
+      <video-files/>
+    </action>
 
   </actions>
 ''
