@@ -86,33 +86,10 @@ rec {
     mercurial
     vimHugeX
     haskell_7_8
-
-    # autoconf
-    # automake
-    # gettext
-    # intltool
-    # libtool
-    # pkgconfig
-    # perl
-    # curl
-    # cmake
-    # python
-    # ncurses
-    # curl
-    # zlib
-    # patchelf
-    # m4
-    # perlPackages.LWP
-    # glib
-    # gcc
-    # gnumake
-    # sqlite
-    # postgresql92
-
-    (devenv {
-      enableCross = false;
-      enableX11 = services.xserver.enable;
-    })
-
+    (devenv { enableCross = false; enableX11 = services.xserver.enable; })
   ];
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 }
