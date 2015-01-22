@@ -13,6 +13,9 @@ let
     }
     { name =  "dvyal";
       key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUYhWpWRBAXgtGz/ihjLI1PFOVBw5ua2eTLpR39hnphts7FMI/7CEJEAdoXCx+ztIVuVRnvEzTraFfGbkVHSqC8lG+7AIMBdzIphRHQo88BQNgvCk7Ju7XXyoSKiUEL17EJaLKyVk5G2kP0vSPOCMkReLuMX5vtjAF+DcVa7ZngyvnvliFVPxgE3MxXI76LW+jRMj1wkeM8KSqZa0n/M7+nkCr1U7zjBrUmJzsPq321h/Mfd4SyjSROU9A4TX/r+bw/DffjNWcocZcy8XXzvw9Y7O/z5NxYEkns3nq3cZxyj4DiPJVr913b2Sbf6nHMVBw46EAOytwNqUMreuBJUU5 dvyal@dvyal-desktop";
+    }
+    { name =  "vshebordaev";
+      key = "";
     }];
 
   for_all_colleges = f : lib.concatMapStrings f colleges;
