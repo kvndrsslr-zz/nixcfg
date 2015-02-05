@@ -26,7 +26,7 @@ in
       value = {
         uid = 2000 + i;
         group = "users";
-        extraGroups = ["wheel" "audio"];
+        extraGroups = [];
         home = "/home/${n.name}";
         useDefaultShell = true;
       };
