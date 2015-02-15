@@ -18,10 +18,9 @@ rec {
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
-      <nixos/modules/programs/virtualbox.nix>
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_3_12;
+  boot.kernelPackages = pkgs.linuxPackages_3_14;
 
   boot.blacklistedKernelModules = [
     "fbcon"
@@ -143,6 +142,8 @@ rec {
       Option "OffTime" "0"
     '';
   };
+
+  services.virtualboxHost.enable = true;
 
   environment.systemPackages = with pkgs ; [
     unclutter
