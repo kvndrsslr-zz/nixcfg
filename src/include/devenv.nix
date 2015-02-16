@@ -35,6 +35,7 @@
           gmp
           mpfr
           utf8proc
+          gcc
         ];
 
         x11 = with pkgs ; [
