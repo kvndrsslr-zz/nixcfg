@@ -122,6 +122,10 @@ rec {
     };
   };
 
+  hardware = {
+    pulseaudio.enable = true;
+  };
+
   services.rsyslogd = {
     enable = true;
     defaultConfig = ''
@@ -160,6 +164,7 @@ rec {
     libreoffice
     pidgin
     skype
+    pavucontrol
     networkmanagerapplet
     cups
 
