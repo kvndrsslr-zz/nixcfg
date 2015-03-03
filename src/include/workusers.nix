@@ -16,6 +16,9 @@ let
     }
     { name =  "vshebordaev";
       key = "";
+    }
+    { name = "poohber";
+      key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7OY7y+4qyJH+V9+3jsBEzuKnPXSwa1pGtT/lTkhqgT17D22RFzu1HwEIxw2MgBjpizVGgW/7GWyg8CARNGDUdjZW40P0b8g7S3psU7Keynxu2Dsnx46Ym0ITWtb6sH3/iuY8UvtoOIk+B67NOgSqfrBE+v0azHBB5wHwIuse2Ubq6r51monCvTwKvEB2uiUHwrm89GCn7hTjFXoCGy3YzkUGUoPU3BG578o7UX+X6jpHDDOOgtDoqSzLqhzDEJ4TPeqrEEJ9RpbXTK4YifAep4y29ANgCowaB1HB0wp9tfymGSkA6DFVX2ZDhOQC+qpxvUvEXPhIwhYXzbf3naqeF anechay@ecotelecom.ru";
     }];
 
   for_all_colleges = f : lib.concatMapStrings f colleges;
