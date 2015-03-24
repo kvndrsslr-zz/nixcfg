@@ -87,6 +87,7 @@ rec {
     enable = true;
     ports = [22 2222];
     permitRootLogin = "yes";
+    gatewayPorts = "yes";
   };
 
   services.dbus.packages = [ pkgs.gnome.GConf ];
