@@ -1,3 +1,4 @@
+URxvt*geometry: 103x32
 URxvt*meta8: false
 URxvt*transparent: false
 URxvt*fadeColor: #ffffff
