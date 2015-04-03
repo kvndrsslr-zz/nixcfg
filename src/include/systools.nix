@@ -33,6 +33,7 @@
     tig
     figlet
     manpages
+    hdparm
 
     mc
     gitAndTools.gitFull
