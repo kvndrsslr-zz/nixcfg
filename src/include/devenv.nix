@@ -1,5 +1,17 @@
 { config, pkgs, ... } :
 
+let
+
+  myprofile = import ./myprofile.nix {
+    inherit pkgs;
+    extra = ''
+      PROMPT_COLOR="0;35m"
+      PS1="\n\[\033[$PROMPT_COLOR\][\u@\h \w ]\\$\[\033[0m\] "
+    '';
+  };
+
+in
+
 {
 
   nixpkgs.config = {
@@ -77,12 +89,15 @@
             ++ optionals enableX11 x11
             ++ optionals enableCross cross;
 
+          shell = "${pkgs.bashInteractive}/bin/bash --noprofile --rcfile ${myprofile}";
+
           # myEnv sets this variables to unreal values to prevent wget
           # from installing anything. I often need cabal to install this or that
           # from within devenv, so let's help wget
           extraCmds = ''
             unset http_proxy
             unset https_proxy
+            export PS1="$PS1 [DEV] "
           '';
       };
     };
