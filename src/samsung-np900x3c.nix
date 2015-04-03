@@ -185,6 +185,7 @@ rec {
     (devenv { enableX11 = services.xserver.enable; })
     imagemagick
     smplayer
+    geeqie
   ];
 
   nixpkgs.config = {
