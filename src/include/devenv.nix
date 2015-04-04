@@ -91,13 +91,9 @@ in
 
           shell = "${pkgs.bashInteractive}/bin/bash --noprofile --rcfile ${myprofile}";
 
-          # myEnv sets this variables to unreal values to prevent wget
-          # from installing anything. I often need cabal to install this or that
-          # from within devenv, so let's help wget
           extraCmds = ''
             unset http_proxy
             unset https_proxy
-            export PS1="$PS1 [DEV] "
           '';
       };
     };
