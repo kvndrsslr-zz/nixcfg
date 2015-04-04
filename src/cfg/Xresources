@@ -17,7 +17,7 @@ URxvt*background: #FbFbFb
 URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-u
 URxvt*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-u
 URxvt*loginShell: true
-URxvt.perl-ext-common:  default,matcher,fullscreen
+URxvt.perl-ext-common:  default,fullscreen
 URxvt*keysym.F11:       perl:fullscreen:switch
 URxvt*keysym.Escape: \033\033
 !URxvt*keysym.Meta-ц: \033w
@@ -50,9 +50,3 @@ XTerm*VT100.translations: #override \n\
 	<Btn2Up>: insert-selection(SELECT, CLIPBOARD, CUT_BUFFER0) \n\
 
 XPdf*fontList: -*-fixed-medium-r-*-*-*-u:
-
-!Xft.dpi: 108
-!Xft.hinting: true
-!Xft.hintstyle: hintslight
-!Xft.antialias: true
-!Xft.rgba: none

@@ -4,61 +4,10 @@ Host vps
 	ForwardX11Trusted  yes
 	Port 2222
 
-Host fl
-    User        grwlf
-    HostName    floppylord.dyndns.org
-	Port 		2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host fll
-    User        ierton
-    HostName    server.local
-	Port 		2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host flll
-    User        ierton
-    HostName    192.168.1.20
-	Port 		2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host bs #BoardServer
-	User smironov
-	HostName 194.190.196.141
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host elec #Server for Elecard
-	User smironov
-	HostName 194.190.196.160
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
 Host pok
     User        ierton
     HostName    pokemon.local
 	Port 		22
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host work
-	User smironov
-	ProxyCommand ssh bs nc 127.0.0.1 3248
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host worke
-	User smironov
-	ProxyCommand ssh elec nc 127.0.0.1 3248
-	ForwardX11         yes
-	ForwardX11Trusted  yes
-
-Host eland
-	User smironov
-	ProxyCommand ssh worke nc 10.7.1.30 22
 	ForwardX11         yes
 	ForwardX11Trusted  yes
 
@@ -79,4 +28,11 @@ Host mama
 Host phone
 	User user
 	HostName RM696.local
+
+host ww
+	User grwlf
+	HostName 91.224.132.27
+	Port 2222
+	ForwardX11         yes
+	ForwardX11Trusted  yes
 

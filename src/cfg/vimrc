@@ -4,6 +4,7 @@ filetype plugin on
 set nocompatible
 
 colorscheme default
+" colorscheme zellner
 
 fun VAM()
 	let c = get(g:, 'vim_addon_manager', {})
@@ -20,9 +21,9 @@ fun VAM()
 				\ , "github:grwlf/cyrvim"
 				\ , "github:grwlf/find.vim"
 				\ , "github:tpope/vim-commentary.git"
+				\ , "github:tpope/vim-fugitive.git"
 				\ , "github:guns/xterm-color-table.vim"
 				\ , "github:grwlf/vim-addon-urweb"
-				\ , "github:embear/vim-localvimrc"
 				\ , "bufexplorer.zip"
 				\ , "Supertab"
 				\ , "surround"
@@ -83,6 +84,7 @@ au BufEnter * syntax sync minlines=50
 au BufEnter * syntax sync fromstart
 au BufEnter .vimperatorrc set filetype=vim
 au BufEnter *urs set filetype=ur
+au BufEnter *grm set filetype=ur
 
 au BufEnter nixos-config set filetype=nix
 au FileType nix set expandtab shiftwidth=2 tabstop=2
@@ -136,9 +138,6 @@ nnoremap ! :!
 
 " Help on word
 map <F1> :exec ":help " . expand('<cword>')<CR>
-
-" Screen
-nnoremap s :!screen<CR>
 
 " Display lines scrolling
 nnoremap j gj
@@ -272,12 +271,30 @@ let g:NERDTreeMapQuit='h'
 noremap <F4> <ESC>:NERDTreeFind<CR>
 command -nargs=0 NF :NERDTreeFind
 
-function! NERDTreeOpenTerm(node)
+function! VimOpenTerm(d)
 	let oldcwd = getcwd()
-	call a:node.path.getDir().changeToDir()
+	exec "cd " . a:d
 	exec '!screen'
 	exec "cd " . oldcwd
 endfunction
+
+function! VimOpenTermWindow(d)
+	let d = 
+	exec '!STY="" urxvt -cd ' . a:d . ' &'
+endfunction
+
+function! NERDTreeOpenTerm(node)
+	call VimOpenTerm(a:node.path.getDir().str())
+endfunction
+
+function! NERDTreeOpenTermWindow(node)
+	call VimOpenTermWindow(a:node.path.getDir().str())
+endfunctio
+
+" Screen
+nnoremap s :call VimOpenTerm(expand("%:h"))<CR>
+nnoremap S :call VimOpenTermWindow(expand("%:p:h"))<CR>
+
 
 " Airline
 let g:airline_theme="badwolf"
@@ -290,11 +307,6 @@ noremap <Space> <Esc>:BufExplorer<CR>
 " EasyGrep
 let g:EasyGrepRecursive = 1
 let g:EasyGrepMode = 2
-
-" G[rep]
-let g:CGrepMask = "**/*c **/*h **/*cpp **/*hpp"
-let g:MyGrepMask = g:CGrepMask
-command! -nargs=+ G :execute ('copen | vimgrep <args> ' . g:MyGrepMask )
 
 " Local vimrc
 let g:local_vimrc = '.vimrc_local.vim'
@@ -314,6 +326,11 @@ nmap <C-C> gccj
 let g:alternateExtensions_ur = "urs"
 let g:alternateExtensions_urs = "ur"
 
-" local-vimrc
-let g:localvimrc_ask = 0
+" Window resizing
+nnoremap <silent> + :exe "resize " . (max([winheight(0) * 3/2, 2]))<CR>
+nnoremap <silent> - :exe "resize " . (max([winheight(0) * 2/3, 1]))<CR>
+
+" G[rep] (requires tpope's vim-fugitive plugin)
+command! -nargs=+ G :execute ('Ggrep <args> ')
+autocmd QuickFixCmdPost *grep* cwindow
 
