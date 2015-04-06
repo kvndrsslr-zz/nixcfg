@@ -253,7 +253,7 @@ endf
 nmap <F8> :call ChangeFileencoding()<CR>
 
 " Figlet
-command! -nargs=+ Figlet :r! figlet <args>
+command! -nargs=+ Figlet :r! figlet <args> | sed 's/[ \t]*$//'
 
 " Cyrvim
 let g:cyrvim_map_esc = 1
