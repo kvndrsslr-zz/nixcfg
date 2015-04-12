@@ -1,18 +1,7 @@
-{ stdenv, diffutils, template, writeText }:
+{ stdenv, diffutils, template, writeText, writeShellScript }:
 let
 
-  mkscript = path : text : ''
-    mkdir -pv `dirname ${path}`
-    cat > ${path} <<"EOF"
-    #!/bin/sh
-    ME=`basename ${path}`
-    ${text}
-    EOF
-    sed -i "s@%out@$out@g" ${path}
-    chmod +x ${path}
-  '';
-
-  s = mkscript "$out/bin/cfginit" ''
+  s = n : writeShellScript n ''
 
     DRYRUN=n
     DEBUG=n
@@ -78,12 +67,13 @@ let
   '';
 
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   name = "cfginit";
 
   builder = writeText "builder.sh" ''
     . $stdenv/setup
-    ${s}
+    mkdir -pv $out/bin
+    cp ${s name} $out/bin/${name}
   '';
 
   meta = {

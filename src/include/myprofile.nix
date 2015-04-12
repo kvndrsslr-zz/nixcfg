@@ -67,8 +67,10 @@ in pkgs.writeText "myprofile.sh" ''
     esac
   }
 
+  # Set window name
   wn() { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
 
+  # Set screen window name
   sn() {
     PID=$(echo $STY | awk -F"." '{ print $1}')
     if test -n "$PID" ; then
