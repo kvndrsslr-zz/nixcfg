@@ -92,6 +92,10 @@ rec {
     package = pkgs.postgresql92;
   };
 
+  services.printing = {
+    enable = true;
+  };
+
   services.xserver = {
     enable = true;
 
@@ -172,6 +176,7 @@ rec {
     pavucontrol
     qbittorrent
     rtorrent
+    cups
 
     mercurial
     mlton
