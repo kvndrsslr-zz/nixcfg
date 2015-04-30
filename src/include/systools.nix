@@ -34,6 +34,7 @@
     figlet
     manpages
     hdparm
+    tree
 
     mc
     gitAndTools.gitFull
