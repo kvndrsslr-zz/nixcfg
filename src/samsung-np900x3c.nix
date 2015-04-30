@@ -83,6 +83,9 @@ rec {
     enable = true;
     ports = [22 2222];
     permitRootLogin = "yes";
+    extraConfig = ''
+      ClientAliveInterval 20
+    '';
   };
 
   services.dbus.packages = [ pkgs.gnome.GConf ];
