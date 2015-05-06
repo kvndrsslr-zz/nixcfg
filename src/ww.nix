@@ -19,7 +19,6 @@ rec {
       ./include/workusers.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
-      <nixos/modules/programs/virtualbox.nix>
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_3_12 // {
@@ -91,6 +90,8 @@ rec {
   };
 
   services.dbus.packages = [ pkgs.gnome.GConf ];
+
+  services.virtualboxHost.enable = true;
 
   services.postgresql = {
     enable = true;
