@@ -194,6 +194,7 @@ rec {
   ];
 
   nixpkgs.config = {
+    allowBroken = true;
     allowUnfree = true;
   };
 

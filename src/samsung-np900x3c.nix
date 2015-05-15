@@ -192,6 +192,7 @@ rec {
   ];
 
   nixpkgs.config = {
+    allowBroken = true;
     allowUnfree = true;
     chrome = {
       jre = true;

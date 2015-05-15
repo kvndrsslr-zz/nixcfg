@@ -11,9 +11,9 @@
         self.cabalInstall
       ]));
 
-      haskell_7_8 = (pkgs.haskellPackages_ghc784.ghcWithPackagesOld (self: [
+      haskell_7_8 = (pkgs.haskellPackages.ghcWithPackages (self: [
         # self.haskellPlatform
-        self.cabalInstall
+        self.Cabal
       ]));
 
     };
