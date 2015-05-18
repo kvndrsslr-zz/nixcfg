@@ -7,8 +7,8 @@
     xfce.xfce4_embed_plugin
     xfce.xfce4_battery_plugin
     xfce.xfce4_verve_plugin
-    xfce.xfce4_notes_plugin
-    xfce.xfce4_dict_plugin
+    # xfce.xfce4_notes_plugin
+    # xfce.xfce4_dict_plugin
     xfce.xfce4_clipman_plugin
     xfce.xfce4_datetime_plugin
     xfce.xfce4_netload_plugin
