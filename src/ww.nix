@@ -21,11 +21,11 @@ rec {
       ./include/firefox-with-localization.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_3_12 // {
-    virtualbox = pkgs.linuxPackages_3_12.virtualbox.override {
-      enableExtensionPack = true;
-    };
-  };
+  # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
+  #   virtualbox = pkgs.linuxPackages_3_12.virtualbox.override {
+  #     enableExtensionPack = true;
+  #   };
+  # };
 
   boot.blacklistedKernelModules = [
     "fbcon"
@@ -157,11 +157,6 @@ rec {
     xlsfonts
     djvulibre
     wine
-    xfce.xfce4_cpufreq_plugin
-    xfce.xfce4_systemload_plugin
-    xfce.xfce4_xkb_plugin
-    xfce.gigolo
-    xfce.xfce4taskmanager
     vlc
     libreoffice
     pidgin
@@ -194,6 +189,7 @@ rec {
   ];
 
   nixpkgs.config = {
+    virtualbox.enableExtensionPack = true;
     allowBroken = true;
     allowUnfree = true;
   };
