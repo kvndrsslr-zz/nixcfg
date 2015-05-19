@@ -102,6 +102,13 @@ rec {
     enable = true;
   };
 
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "@weekly root nix-collect-garbage -d >/home/grwlf/cronout"
+    ];
+  };
+
   services.xserver = {
     enable = true;
 
