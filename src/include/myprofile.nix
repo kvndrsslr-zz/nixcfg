@@ -83,10 +83,10 @@ in pkgs.writeText "myprofile.sh" ''
 
   if env | grep -q SSH_CONNECTION= ; then
     if env | grep -q DISPLAY= ; then
-      echo DISPLAY is $DISPLAY
+      echo DISPLAY is $DISPLAY >/dev/null
       echo "export DISPLAY=$DISPLAY" > $HOME/.display
     else
-      echo No DISPLAY was set
+      echo No DISPLAY was set >/dev/null
     fi
   fi
 
