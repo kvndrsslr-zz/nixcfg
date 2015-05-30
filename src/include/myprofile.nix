@@ -90,6 +90,14 @@ in pkgs.writeText "myprofile.sh" ''
     fi
   fi
 
+  make() {
+    if test -f "Makefile.dev" ; then
+      ${gnumake}/bin/make -f Makefile.dev "$@"
+    else
+      ${gnumake}/bin/make "$@"
+    fi
+  }
+
   ${if extra != null then extra else ""}
 ''
 
