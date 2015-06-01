@@ -1,4 +1,4 @@
-{ stdenv, language, firefox, firefoxWrapper, gnused, bash, wget }:
+{ stdenv, language, firefox, firefoxWrapper, gnused, bash, curl }:
 let
 
   version = firefox.version;
@@ -27,7 +27,7 @@ let
     if ! test -f "$LANGPACK" ; then
       (
         # Downloads language pack in separate process
-        ${wget}/bin/wget ${langurl} -O "$LANGPACK" &&
+        ${curl}/bin/curl ${langurl} -o "$LANGPACK" &&
         ${firefoxWrapper}/bin/firefox -UILocale ${language} "$LANGPACK"
       ) &
     fi

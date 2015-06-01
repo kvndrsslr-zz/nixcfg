@@ -1,7 +1,8 @@
-{ stdenv, diffutils, template, writeText, writeShellScript }:
+{ stdenv, diffutils, template, writeText }:
 let
 
-  s = n : writeShellScript n ''
+  s = n : writeText n ''
+    #!/bin/sh
 
     DRYRUN=n
     DEBUG=n
@@ -74,6 +75,7 @@ stdenv.mkDerivation rec {
     . $stdenv/setup
     mkdir -pv $out/bin
     cp ${s name} $out/bin/${name}
+    chmod +x $out/bin/${name}
   '';
 
   meta = {
