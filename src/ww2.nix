@@ -57,7 +57,7 @@ rec {
   time.timeZone = "Europe/Moscow";
 
   networking = {
-    hostName = "ww";
+    hostName = "ww2";
     networkmanager.enable = true;
     proxy.default = "Mironov_S:${import <passwords/kasper>}@proxy.avp.ru:3128";
   };
@@ -175,7 +175,6 @@ rec {
     pavucontrol
     networkmanagerapplet
     cups
-
     haskell_7_8
     (devenv { enableX11 = services.xserver.enable; })
 
