@@ -1,0 +1,136 @@
+set editor="urxvt -e vim '+set ft=mail'"
+" set defsearch="duckduckgo"
+set urlseparator=
+set focuscontent
+
+nnoremap j 15j
+nnoremap k 15k
+
+"Russian language keyboard mappings (UTF-8){{{
+map ё `
+map й q
+map ц w
+map у e
+map к r
+map е t
+map н y
+map г u
+map ш i
+map щ o
+map з p
+map х [
+map ъ ]
+map ф a
+map ы s
+map ыы ss
+map ыц sw
+map ыг su
+map в d
+map а f
+map п g
+map пш gi
+map р h
+map о j
+map л k
+map д l
+map ж ;
+map э '
+map я z
+map ч x
+map с c
+map м v
+map и b
+map т n
+map ь m
+map б ,
+map ю .
+map Ё ~
+map Й Q
+map Ц W
+map У E
+map К R
+map Е T
+map Н Y
+map Г U
+map Ш I
+map Щ O
+map З P
+map Х {
+map Ъ }
+map Ф A
+map Ы S
+map В D
+map А F
+map П G
+map Р H
+map О J
+map Л K
+map Д L
+map Ж :
+map Э "
+map Я Z
+map Ч X
+map С C
+map М V
+map И B
+map Т N
+map Ь M
+map Б <
+map Ю >
+map . /
+"}}}
+
+imap <A-b> <C-Left>
+imap <A-f> <C-Right>
+imap <A-d> <C-S-Right><Del>
+cmap <A-b> <C-Left>
+cmap <A-f> <C-Right>
+cmap <A-d> <C-S-Right><Del>
+
+imap <A-и> <C-Left>
+imap <A-а> <C-Right>
+imap <A-в> <C-S-Right><Del>
+cmap <A-и> <C-Left>
+cmap <A-а> <C-Right>
+cmap <A-в> <C-S-Right><Del>
+
+map gr gT
+map пк gT
+map пе gt
+map пп gg
+map . /
+
+map <A-q> gT
+map <A-й> gT
+map <A-w> gt
+map <A-ц> gt
+imap <A-q> <Esc>gT
+imap <A-й> <Esc>gT
+imap <A-w> <Esc>gt
+imap <A-ц> <Esc>gt
+
+map <A-3> :tabmove +1<cr>
+map <A-`> :tabmove -1<cr>
+map <C-a>c :tabopen<cr>:open 
+map <C-a>с :tabopen<cr>:open 
+map <C-a>d :tabduplicate<cr>
+map <C-a>в :tabduplicate<cr>
+noremap <C-c> <C-v><C-c>
+map q :tabclose<cr>
+
+" Will focus left tab after closing
+map d D
+
+map ss :tabopen google 
+map sw :tabopen wikipedia 
+map su :tabopen google site:impredicative.com/pipermail/ur 
+
+map <A-i> gi
+map <A-ш> gi
+imap <A-i> <Esc>gi
+imap <A-ш> <Esc>gi
+
+" Command line mappings
+cmap <C-p> <Up>
+cmap <C-з> <Up>
+
