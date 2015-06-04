@@ -11,10 +11,15 @@
         self.cabalInstall
       ]));
 
-      haskell_7_8 = (pkgs.haskellPackages.ghcWithPackages (self: [
-        # self.haskellPlatform
-        self.Cabal
-      ]));
+      # haskell710 = (pkgs.haskellngPackages.ghcWithPackages (self: [ self.cabal-install ]));
+
+      haskell710 = (pkgs.haskell.packages.ghc7101.override {
+        overrides = config.haskellPackageOverrides or (self: super: {});
+      }).ghcWithPackages (self: [ self.cabal-install ]);
+
+      haskell78 = (pkgs.haskell.packages.ghc784.override {
+        overrides = config.haskellPackageOverrides or (self: super: {});
+      }).ghcWithPackages (self: [ self.cabal-install ]);
 
     };
   };

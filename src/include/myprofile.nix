@@ -38,7 +38,12 @@ in pkgs.writeText "myprofile.sh" ''
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimHugeX}/bin/vim -R "$@" - ; }
   pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
-  d() 	    { load-env-dev ; }
+  d() 	    { if test -z "$1" ; then
+                load-env-dev
+              else
+                load-env-dev-$1
+              fi
+            }
   manconf() { ${man}/bin/man configuration.nix ; }
   gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   beep()    { aplay ~/proj/dotfiles/beep.wav ; }

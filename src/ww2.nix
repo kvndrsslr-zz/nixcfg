@@ -175,9 +175,16 @@ rec {
     pavucontrol
     networkmanagerapplet
     cups
-    haskell_7_8
-    (devenv { enableX11 = services.xserver.enable; })
-
+    (devenv {
+      name = "dev";
+      extraPkgs = [ haskell710 ]
+        ++ lib.optionals services.xserver.enable devlibs_x11;
+    })
+    (devenv {
+      name = "dev-h78";
+      extraPkgs = [ haskell78 ]
+        ++ lib.optionals services.xserver.enable devlibs_x11;
+    })
     mercurial
     unetbootin
     manpages
