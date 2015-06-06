@@ -20,7 +20,7 @@ rec {
       ./include/firefox-with-localization.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_3_14;
+  # boot.kernelPackages = pkgs.linuxPackages_3_14;
 
   boot.blacklistedKernelModules = [
     "fbcon"
@@ -113,9 +113,10 @@ rec {
     };
 
     displayManager = {
-      lightdm = {
-        enable = true;
-      };
+      sddm.enable = true;
+      # lightdm = {
+      #   enable = true;
+      # };
     };
 
     multitouch.enable = false;
@@ -162,7 +163,7 @@ rec {
     feh
     xcompmgr
     zathura
-    evince
+    # evince
     xneur
     mplayer
     xlibs.xev
@@ -178,7 +179,7 @@ rec {
     networkmanagerapplet
     pavucontrol
     qbittorrent
-    rtorrent
+    # rtorrent
     cups
 
     mercurial
