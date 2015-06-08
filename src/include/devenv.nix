@@ -73,6 +73,7 @@
           extra = ''
             PROMPT_COLOR="0;35m"
             PS1="\n\[\033[$PROMPT_COLOR\][\u@\h-${name} \w ]\\$\[\033[0m\] "
+            export LANG=C
           '';
         };
 

@@ -185,6 +185,11 @@ rec {
       extraPkgs = [ haskell78 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
+    (devenv {
+      name = "dev-h74";
+      extraPkgs = [ haskell74 ]
+        ++ lib.optionals services.xserver.enable devlibs_x11;
+    })
     mercurial
     unetbootin
     manpages

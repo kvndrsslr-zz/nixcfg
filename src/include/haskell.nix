@@ -21,6 +21,10 @@
         overrides = config.haskellPackageOverrides or (self: super: {});
       }).ghcWithPackages (self: [ self.cabal-install ]);
 
+      haskell74 = (pkgs.haskell.packages.ghc742.override {
+        overrides = config.haskellPackageOverrides or (self: super: {});
+      }).ghcWithPackages (self: [ self.cabal-install ]);
+
     };
   };
 }
