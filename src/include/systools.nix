@@ -35,6 +35,7 @@
     manpages
     hdparm
     tree
+    curl-full
 
     mc
     gitAndTools.gitFull
