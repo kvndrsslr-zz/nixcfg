@@ -24,6 +24,7 @@ fun VAM()
 				\ , "github:tpope/vim-fugitive.git"
 				\ , "github:guns/xterm-color-table.vim"
 				\ , "github:grwlf/vim-addon-urweb"
+				\ , "github:embear/vim-localvimrc"
 				\ , "bufexplorer.zip"
 				\ , "Supertab"
 				\ , "surround"
@@ -309,7 +310,8 @@ let g:EasyGrepRecursive = 1
 let g:EasyGrepMode = 2
 
 " Local vimrc
-let g:local_vimrc = '.vimrc_local.vim'
+let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim']
+let g:localvimrc_ask = 0
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
@@ -331,6 +333,11 @@ nnoremap <silent> + :exe "resize " . (max([winheight(0) * 3/2, 2]))<CR>
 nnoremap <silent> - :exe "resize " . (max([winheight(0) * 2/3, 1]))<CR>
 
 " G[rep] (requires tpope's vim-fugitive plugin)
-command! -nargs=+ G :execute ('Ggrep <args> ')
+function! GitGrepInDir(args)
+	let cwd = getcwd()
+	exec "Ggrep '" . a:args . "' '" . cwd . "'"
+	echo  "Ggrep '" . a:args . "' '" . cwd . "'"
+endfunction
+command! -nargs=+ G :call GitGrepInDir("<args>")
 autocmd QuickFixCmdPost *grep* cwindow
 
