@@ -30,7 +30,6 @@ rec {
     "fbcon"
     "pcspkr"
     "snd_pcsp"
-    "snd_hda_codec_hdmi"
     ];
 
   boot.kernelParams = [
@@ -38,9 +37,9 @@ rec {
     #"elevator=noop"
     ];
 
-  boot.extraModprobeConfig = ''
-    options snd_hda_intel enable=0,1
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options snd_hda_intel enable=0,1
+  # '';
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
