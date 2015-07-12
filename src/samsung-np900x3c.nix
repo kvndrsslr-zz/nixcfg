@@ -45,6 +45,7 @@ rec {
 
   hardware = {
     opengl.videoDrivers = [ "intel" ];
+    opengl.driSupport32Bit = true;
     enableAllFirmware = true;
     firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
