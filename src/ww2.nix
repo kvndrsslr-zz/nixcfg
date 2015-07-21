@@ -118,7 +118,7 @@ rec {
     startOpenSSHAgent = true;
 
     videoDrivers = [ "intel" "ati" "vesa" "cirrus" ];
-    
+
     layout = "us,ru";
 
     xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
