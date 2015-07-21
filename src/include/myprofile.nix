@@ -48,11 +48,13 @@ in pkgs.writeText "myprofile.sh" ''
   gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   beep()    { aplay ~/proj/dotfiles/beep.wav ; }
 
-  alias ga='${gitbin} add'
-  alias gb='${gitbin} branch'
-  alias gco='${gitbin} commit'
+  alias gai='${gitbin} add -i'
+  alias gco='${gitbin} checkout'
+  alias gg='${gitbin} grep'
+  alias gpff='${gitbin} pull --ff'
   alias gcp='${gitbin} commit && git push'
-  alias gch='${gitbin} checkout'
+  alias gc='${gitbin} commit'
+
   alias gd='${gitbin} diff'
   alias gl='${gitbin} log'
   alias gr='${gitbin} reset'
@@ -60,11 +62,10 @@ in pkgs.writeText "myprofile.sh" ''
   alias grh='${gitbin} reset --hard'
   alias grm='${gitbin} remote'
   alias gs='${gitbin} status'
-  alias gsts='${gitbin} stash save'
-  alias gsta='${gitbin} stash pop'
-  alias gstl='${gitbin} stash list'
+  alias gss='${gitbin} stash save'
+  alias gsp='${gitbin} stash pop'
+  alias gsl='${gitbin} stash list'
   alias gcp='${gitbin} cherry-pick'
-  alias gg='${gitbin} grep'
 
   vim()     {
     case "$1" in

@@ -25,6 +25,7 @@ fun VAM()
 				\ , "github:guns/xterm-color-table.vim"
 				\ , "github:grwlf/vim-addon-urweb"
 				\ , "github:embear/vim-localvimrc"
+				\ , "github:bronson/vim-trailing-whitespace"
 				\ , "bufexplorer.zip"
 				\ , "Supertab"
 				\ , "surround"
@@ -310,8 +311,10 @@ let g:EasyGrepRecursive = 1
 let g:EasyGrepMode = 2
 
 " Local vimrc
-let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim']
+let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
+let g:localvimrc_event = [ "BufWinEnter" ]
 let g:localvimrc_ask = 0
+let g:localvimrc_sandbox = 0
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
@@ -340,4 +343,10 @@ function! GitGrepInDir(args)
 endfunction
 command! -nargs=+ G :call GitGrepInDir("<args>")
 autocmd QuickFixCmdPost *grep* cwindow
+
+" let g:hscoptions = "wA𝐒𝐓𝐓𝐌CIT𝔻"
+" :au BufReadPost * if b:current_syntax == "haskell"
+" :au BufReadPost *   highlight Comment ctermfg=Red guifg=Red
+" :au BufReadPost *   let g:aaa = "AAA"
+" :au BufReadPost * endif
 
