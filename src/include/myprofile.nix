@@ -35,6 +35,7 @@ in pkgs.writeText "myprofile.sh" ''
   cdt() 		{ cd $HOME/tmp ; }
   cdd()     { cd $HOME/dwnl; }
   gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
+  gitka() 		{ LANG=C ${git}/bin/gitk --all "$@" & }
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimHugeX}/bin/vim -R "$@" - ; }
   pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
@@ -48,24 +49,26 @@ in pkgs.writeText "myprofile.sh" ''
   gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   beep()    { aplay ~/proj/dotfiles/beep.wav ; }
 
+  alias ga='${gitbin} add'
   alias gai='${gitbin} add -i'
-  alias gco='${gitbin} checkout'
-  alias gg='${gitbin} grep'
-  alias gpff='${gitbin} pull --ff'
-  alias gcp='${gitbin} commit && git push'
+  alias gb='${gitbin} branch'
   alias gc='${gitbin} commit'
-
+  alias gco='${gitbin} checkout'
+  alias gcp='${gitbin} cherry-pick'
   alias gd='${gitbin} diff'
+  alias gg='${gitbin} grep'
   alias gl='${gitbin} log'
-  alias gr='${gitbin} reset'
   alias gm='${gitbin} merge'
+  alias gp='${gitbin} push'
+  alias gpff='${gitbin} pull --ff'
+  alias gr='${gitbin} reset'
   alias grh='${gitbin} reset --hard'
   alias grm='${gitbin} remote'
+  alias grma='${gitbin} remote add'
   alias gs='${gitbin} status'
-  alias gss='${gitbin} stash save'
-  alias gsp='${gitbin} stash pop'
-  alias gsl='${gitbin} stash list'
-  alias gcp='${gitbin} cherry-pick'
+  alias gsta='${gitbin} stash pop'
+  alias gstl='${gitbin} stash list'
+  alias gsts='${gitbin} stash save'
 
   vim()     {
     case "$1" in
