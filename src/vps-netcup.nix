@@ -85,8 +85,14 @@ rec {
     mlton
     mercurial
     vimHugeX
-    haskell_7_8
-    (devenv { enableCross = false; enableX11 = services.xserver.enable; })
+    (devenv {
+      name = "dev";
+      extraPkgs = [ haskell710 ];
+    })
+    tig
+    which
+    postgresql
+    imagemagick
   ];
 
   nixpkgs.config = {
