@@ -93,6 +93,7 @@ rec {
     which
     postgresql
     imagemagick
+    swaks
   ];
 
   nixpkgs.config = {
