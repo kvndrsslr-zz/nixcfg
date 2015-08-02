@@ -18,6 +18,7 @@ rec {
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
+      ./include/syncthing.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_14;
