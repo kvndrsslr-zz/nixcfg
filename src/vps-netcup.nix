@@ -16,6 +16,7 @@ rec {
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/security.nix
+    ./include/syncthing.nix
   ];
 
   boot.loader.grub.enable = true;
