@@ -62,6 +62,7 @@ rec {
   services.httpd = {
     enable = true;
     adminAddr = "grrwlf@gmail.com";
+    logPerVirtualHost = true;
     virtualHosts = [
       {
         hostName = "callback.hit.msk.ru";
@@ -78,6 +79,18 @@ rec {
       {
         hostName = "urweb.hit.msk.ru";
         globalRedirect = "http://hit.msk.ru:8083/";
+      }
+      {
+        hostName = "archerydays.ru";
+        extraConfig = ''
+          ProxyPreserveHost On
+          ProxyRequests Off
+          ServerName www.archerydays.ru
+          ServerAlias archerydays.ru
+          ProxyPassMatch "^/$" http://127.0.0.1:8080/Etab/main
+          ProxyPassMatch "^.*$" http://127.0.0.1:8080
+          ProxyPassReverse / http://127.0.0.1:8080/
+        '';
       }
     ];
   };
