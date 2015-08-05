@@ -36,6 +36,7 @@
     hdparm
     tree
     curl-full
+    usbutils
 
     mc
     gitAndTools.gitFull
