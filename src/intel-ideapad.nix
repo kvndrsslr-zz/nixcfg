@@ -4,12 +4,12 @@
 
 {
   require = [
-    ./include/bashrc.nix
-    ./include/screenrc.nix
-    ./include/systools.nix
-    ./include/security.nix
-    ./include/fonts.nix
     /etc/nixos/hardware-configuration.nix
+    ./include/bashrc.nix
+    ./include/systools.nix
+    ./include/user-grwlf.nix
+    ./include/wheel.nix
+    ./include/fonts.nix
   ];
 
   boot.blacklistedKernelModules = [

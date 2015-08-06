@@ -9,16 +9,16 @@ rec {
       ./include/devenv.nix
       ./include/subpixel.nix
       ./include/haskell.nix
-      ./include/screenrc.nix
       ./include/bashrc.nix
       ./include/systools.nix
       ./include/fonts.nix
-      ./include/security.nix
+      ./include/user-grwlf.nix
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/workusers.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
+      ./include/wheel.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_12 // {

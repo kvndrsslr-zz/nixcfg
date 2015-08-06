@@ -1,7 +1,7 @@
 { pkgs, extra ? null} :
 
 with pkgs ;
-let 
+let
 
   git = gitAndTools.gitFull;
 

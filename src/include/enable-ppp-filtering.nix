@@ -7,7 +7,7 @@
         platform = pkgs.stdenv.platform // {
           kernelExtraConfig = "PPP_FILTER y" ;
         };
-      }; 
+      };
     };
   };
 }

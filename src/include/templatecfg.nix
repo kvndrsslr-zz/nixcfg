@@ -79,12 +79,13 @@ in
   environment.etc."template_tigrc".source = ../cfg/tigrc;
   environment.etc."template_gdbinit".source = ../cfg/gdbinit;
   environment.etc."template_vimperatorrc".source = ../cfg/vimperatorrc;
+  environment.etc."template_screenrc".source = ../cfg/screenrc;
 
   nixpkgs.config = {
     packageOverrides = pkgs : {
 
-      cfginit = with pkgs; (stdenv.mkDerivation rec {
-          name = "cfginit";
+      templatecfg = with pkgs; (stdenv.mkDerivation rec {
+          name = "templatecfg";
 
           builder = writeText "builder.sh" ''
             . $stdenv/setup
@@ -104,7 +105,7 @@ in
   };
 
   environment.systemPackages = with pkgs ; [
-    cfginit
+    templatecfg
   ];
 
 }

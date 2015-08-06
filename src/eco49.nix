@@ -9,7 +9,6 @@
   imports = [
       /etc/nixos/hardware-configuration.nix
       ./include/devenv.nix
-      ./include/screenrc.nix
       ./include/bashrc.nix
       ./include/systools.nix
       ./include/security.nix

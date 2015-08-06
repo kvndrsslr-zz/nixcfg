@@ -44,7 +44,7 @@ in
       chown developer:users $A
 
     '' + for_all_colleges ( c : ''
-      
+
       echo
       echo "Creating ${c.name}"
       mkdir /home/${c.name}

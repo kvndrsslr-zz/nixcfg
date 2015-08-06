@@ -9,14 +9,14 @@ rec {
     /etc/nixos/hardware-configuration.nix
     ./include/devenv.nix
     ./include/haskell.nix
-    ./include/screenrc.nix
     ./include/bashrc.nix
     ./include/systools.nix
     ./include/security.nix
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
-    ./include/security.nix
+    ./include/user-grwlf.nix
     ./include/syncthing.nix
+    ./include/wheel.nix
   ];
 
   boot.loader.grub.enable = true;

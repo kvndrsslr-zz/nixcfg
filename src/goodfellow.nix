@@ -5,7 +5,6 @@
 {
   require = [
     ./include/bashrc.nix
-    ./include/screenrc.nix
     ./include/systools.nix
     ./include/security.nix
     ./include/fonts.nix
@@ -96,21 +95,19 @@
         defaultUser = "galtimir";
         autoLogin = true;
       };
-
-      #lightdm = {
-      #  enable = true;
-
-      #  extraConfig = ''
-      #    autologin-user=galtimir
-      #    autologin-user-timeout=1
-      #  '';
-      #};
     };
 
     videoDrivers = [ "intel" "vesa" ];
   };
 
   users.extraUsers = {
+    galtimir = {
+      uid = 1001;
+      group = "users";
+      extraGroups = ["wheel" "networkmanager"];
+      home = "/home/galtimir";
+      useDefaultShell = true;
+    };
   };
 
   environment.systemPackages = with pkgs ; [

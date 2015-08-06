@@ -9,15 +9,15 @@ rec {
       ./include/devenv.nix
       ./include/subpixel.nix
       ./include/haskell.nix
-      ./include/screenrc.nix
       ./include/bashrc.nix
       ./include/systools.nix
       ./include/fonts.nix
-      ./include/users.nix
+      ./include/user-smironov.nix
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
+      ./include/wheel.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
@@ -36,10 +36,6 @@ rec {
     # Use better scheduler for SSD drive
     #"elevator=noop"
     ];
-
-  # boot.extraModprobeConfig = ''
-  #   options snd_hda_intel enable=0,1
-  # '';
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -64,21 +60,6 @@ rec {
   networking.firewall = {
     enable = false;
   };
-
-  #fileSystems = [
-  #  { mountPoint = "/boot";
-  #    device = "/dev/disk/by-label/BOOT";
-  #    options = "defaults,relatime,discard";
-  #  }
-  #  { mountPoint = "/";
-  #    device = "/dev/disk/by-label/ROOT";
-  #    options = "defaults,relatime,discard";
-  #  }
-  #  { mountPoint = "/home";
-  #    device = "/dev/disk/by-label/HOME";
-  #    options = "defaults,relatime,discard";
-  #  }
-  #];
 
   services.ntp = {
     enable = true;
@@ -138,15 +119,6 @@ rec {
   hardware = {
     pulseaudio.enable = true;
   };
-
-  #services.rsyslogd = {
-  #  enable = true;
-  #  defaultConfig = ''
-  #    module(load="imudp")
-  #    input(type="imudp" port="514")
-  #    action(type="omfile" File="/var/log/netmessages")
-  #  '';
-  #};
 
   environment.systemPackages = with pkgs ; [
     # X11 apps
