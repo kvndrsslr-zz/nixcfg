@@ -192,6 +192,11 @@ rec {
       extraPkgs = [ haskell710 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
+    (devenv {
+      name = "dev78";
+      extraPkgs = [ haskell78 ]
+        ++ lib.optionals services.xserver.enable devlibs_x11;
+    })
     imagemagick
     smplayer
     geeqie
