@@ -85,11 +85,6 @@
 
           shell = "${pkgs.bashInteractive}/bin/bash --noprofile --rcfile ${myprofile}";
 
-          extraCmds = ''
-            unset http_proxy
-            unset https_proxy
-          '';
-
       };
     };
   };
