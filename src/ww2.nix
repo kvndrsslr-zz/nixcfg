@@ -120,6 +120,14 @@ rec {
     pulseaudio.enable = true;
   };
 
+  security.pki.certificateFiles = [
+    ./certs/kasperskylabsenterpriseca.cer
+    ./certs/kasperskylabsmoscowca.cer
+    ./certs/kasperskylabspolicyca.cer
+    ./certs/kasperskylabsrootca.cer
+    ./certs/kasperskylabshqca.cer.pem
+  ];
+
   environment.systemPackages = with pkgs ; [
     # X11 apps
     unclutter
