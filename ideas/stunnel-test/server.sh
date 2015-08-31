@@ -2,19 +2,19 @@
 
 CWD=`pwd`
 
+U=grwlf
+G=users
+
 cat >cfg <<EOF
 cert=$CWD/stunnel.pem
 pid=$CWD/stunnel.pid
-# setuid = stunnel
-# setgid = stunnel
+setuid = $U
+setgid = $G
 foreground = yes
 output = /dev/stdout
 [ssh]
 accept = 443
 connect = 127.0.0.1:2222
-[syncthing]
-accept = 443
-connect = 127.0.0.1:22000
 EOF
 
 # cd /etc/ssl
@@ -24,8 +24,10 @@ EOF
 # chmod 600 stunnel.pem
 
 chmod 600 stunnel.pem
+chown $U:$G stunnel.pen
 
-touch stunnel.pid
+touch $CWD/stunnel.pid
+chown $U:$G $CWD/stunnel.pid
 
 stunnel cfg
 
