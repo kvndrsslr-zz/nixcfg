@@ -1,0 +1,10 @@
+cert=/home/grwlf/proj/stunnel-test/stunnel.pem
+pid=/home/grwlf/proj/stunnel-test/stunnel.pid
+client=yes
+# setuid = stunnel
+# setgid = stunnel
+foreground = yes
+output = /dev/stdout
+[ssh]
+accept=443
+connect=46.38.250.132:443
