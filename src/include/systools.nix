@@ -37,8 +37,13 @@
     tree
     curl-full
     usbutils
+    sox
+    stunnel
+    swaks
+    usbutils
 
     mc
+    htop
     gitAndTools.gitFull
     ctags
     subversion
