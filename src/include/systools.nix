@@ -35,7 +35,7 @@
     manpages
     hdparm
     tree
-    curl-full
+    curlFull
     usbutils
     sox
     stunnel

@@ -48,7 +48,7 @@ rec {
     opengl.videoDrivers = [ "intel" ];
     opengl.driSupport32Bit = true;
     enableAllFirmware = true;
-    firmware = [ "/root/firmware" ];
+    # firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
     pulseaudio.enable = true;
   };
@@ -150,7 +150,7 @@ rec {
     '';
   };
 
-  services.virtualboxHost.enable = true;
+  services.virtualboxHost.enable = false;
 
 
   services.journald = {
