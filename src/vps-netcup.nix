@@ -58,7 +58,6 @@ rec {
 
   services.xserver.enable = false;
 
-
   services.httpd = {
     enable = true;
     adminAddr = "grrwlf@gmail.com";
@@ -93,6 +92,41 @@ rec {
         '';
       }
     ];
+  };
+
+
+  services.haproxy = {
+    # FIXME: check and enable
+    enable = false;
+    config = ''
+
+      backend secure_http
+          reqadd X-Forwarded-Proto:\ https
+          rspadd Strict-Transport-Security:\ max-age=31536000
+          mode http
+          option httplog
+          option forwardfor
+          server local_http_server 127.0.0.1:80
+
+      backend ssh
+          mode tcp
+          option tcplog
+          server ssh 127.0.0.1:22
+          timeout server 2h
+
+      frontend ssl
+          bind X.X.X.X:443 ssl crt /etc/ssl/private/certs.pem no-sslv3
+          mode tcp
+          option tcplog
+          tcp-request inspect-delay 5s
+          tcp-request content accept if HTTP
+
+          acl client_attempts_ssh payload(0,7) -m bin 5353482d322e30
+
+          use_backend ssh if !HTTP
+          use_backend ssh if client_attempts_ssh
+          use_backend secure_http if HTTP
+    '';
   };
 
   environment.systemPackages = with pkgs ; [
