@@ -198,7 +198,7 @@ rec {
     #     ++ lib.optionals services.xserver.enable devlibs_x11;
     # })
 
-    imagemagick
+    imagemagickBig
     smplayer
     geeqie
   ];
