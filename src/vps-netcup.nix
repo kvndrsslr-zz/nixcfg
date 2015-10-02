@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  my_ssh_port = 2222;
+in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -42,7 +45,7 @@ rec {
   programs.ssh.setXAuthLocation = true;
 
   services.openssh.enable = true;
-  services.openssh.ports = [2222];
+  services.openssh.ports = [my_ssh_port];
   services.openssh.permitRootLogin = "yes";
   services.openssh.gatewayPorts = "yes";
   services.openssh.forwardX11 = true;
@@ -95,8 +98,7 @@ rec {
 
 
   services.haproxy = {
-    # FIXME: check and enable
-    enable = false;
+    enable = true;
     config = ''
 
       backend secure_http
@@ -110,11 +112,11 @@ rec {
       backend ssh
           mode tcp
           option tcplog
-          server ssh 127.0.0.1:22
+          server ssh 127.0.0.1:${toString my_ssh_port}
           timeout server 2h
 
       frontend ssl
-          bind X.X.X.X:443 ssl crt /etc/ssl/private/certs.pem no-sslv3
+          bind hit.msk.ru:444 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
           mode tcp
           option tcplog
           tcp-request inspect-delay 5s
