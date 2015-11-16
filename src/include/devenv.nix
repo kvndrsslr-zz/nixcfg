@@ -47,7 +47,6 @@
           intltool
           libtool
           pkgconfig
-          perl
           curl
           sqlite
           postgresql92
@@ -58,14 +57,13 @@
           zlib
           patchelf
           m4
-          perlPackages.LWP
           gtk_doc
           glib
           gdb
           gmp
           mpfr
-          utf8proc
           gcc
+          mlton
         ];
 
         myprofile = import ./myprofile.nix {

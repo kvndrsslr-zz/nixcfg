@@ -35,10 +35,15 @@
     manpages
     hdparm
     tree
-    curl-full
+    curlFull
+    usbutils
+    sox
+    stunnel
+    swaks
     usbutils
 
     mc
+    htop
     gitAndTools.gitFull
     ctags
     subversion

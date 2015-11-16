@@ -48,7 +48,7 @@ rec {
     opengl.videoDrivers = [ "intel" ];
     opengl.driSupport32Bit = true;
     enableAllFirmware = true;
-    firmware = [ "/root/firmware" ];
+    # firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
     pulseaudio.enable = true;
   };
@@ -116,9 +116,6 @@ rec {
 
     displayManager = {
       sddm.enable = true;
-      # lightdm = {
-      #   enable = true;
-      # };
     };
 
     multitouch.enable = false;
@@ -153,7 +150,14 @@ rec {
     '';
   };
 
-  services.virtualboxHost.enable = true;
+  services.virtualboxHost.enable = false;
+
+
+  services.journald = {
+    extraConfig = ''
+      SystemMaxUse=50M
+    '';
+  };
 
   environment.systemPackages = with pkgs ; [
     unclutter
@@ -162,11 +166,8 @@ rec {
     rxvt_unicode
     vimHugeX
     glxinfo
-    feh
     xcompmgr
     zathura
-    # evince
-    xneur
     mplayer
     xlibs.xev
     xfontsel
@@ -181,23 +182,23 @@ rec {
     networkmanagerapplet
     pavucontrol
     qbittorrent
-    # rtorrent
     cups
 
     mercurial
-    mlton
 
     (devenv {
       name = "dev";
       extraPkgs = [ haskell710 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
-    (devenv {
-      name = "dev78";
-      extraPkgs = [ haskell78 ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
-    imagemagick
+
+    # (devenv {
+    #   name = "dev78";
+    #   extraPkgs = [ haskell78 ]
+    #     ++ lib.optionals services.xserver.enable devlibs_x11;
+    # })
+
+    imagemagickBig
     smplayer
     geeqie
   ];

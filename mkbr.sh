@@ -10,8 +10,11 @@ echo $@ | grep -qwE -e '-h|--help' && {
 
 set -e
 
+
 if test -z "$@" ; then
-  cmts=`git rev-parse HEAD`
+  # cmts=`git rev-parse HEAD`
+  crev=`git merge-base HEAD origin/master`
+  cmts=`git log --oneline $crev..HEAD | awk '{print $1}'`
 else
   cmts=`git rev-parse "$@"`
 fi

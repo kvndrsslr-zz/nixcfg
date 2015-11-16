@@ -10,3 +10,14 @@ if test -z "$rev" ; then
   exit 1
 fi
 echo $rev
+
+(
+set -e
+cd `dirname $0`/nixpkgs
+b=`git rev-parse --abbrev-ref HEAD`
+crev=`git merge-base $b origin/master`
+echo `git log --oneline $crev..$rev | wc -l` commits between the current merge-base $crev and $rev
+)
+
+
+

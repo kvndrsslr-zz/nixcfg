@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  my_ssh_port = 2222;
+in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -11,7 +14,6 @@ rec {
     ./include/haskell.nix
     ./include/bashrc.nix
     ./include/systools.nix
-    ./include/security.nix
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
@@ -43,7 +45,7 @@ rec {
   programs.ssh.setXAuthLocation = true;
 
   services.openssh.enable = true;
-  services.openssh.ports = [2222];
+  services.openssh.ports = [my_ssh_port];
   services.openssh.permitRootLogin = "yes";
   services.openssh.gatewayPorts = "yes";
   services.openssh.forwardX11 = true;
@@ -57,7 +59,6 @@ rec {
   };
 
   services.xserver.enable = false;
-
 
   services.httpd = {
     enable = true;
@@ -93,6 +94,40 @@ rec {
         '';
       }
     ];
+  };
+
+
+  services.haproxy = {
+    enable = true;
+    config = ''
+
+      backend secure_http
+          reqadd X-Forwarded-Proto:\ https
+          rspadd Strict-Transport-Security:\ max-age=31536000
+          mode http
+          option httplog
+          option forwardfor
+          server local_http_server 127.0.0.1:80
+
+      backend ssh
+          mode tcp
+          option tcplog
+          server ssh 127.0.0.1:${toString my_ssh_port}
+          timeout server 2h
+
+      frontend ssl
+          bind hit.msk.ru:444 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
+          mode tcp
+          option tcplog
+          tcp-request inspect-delay 5s
+          tcp-request content accept if HTTP
+
+          acl client_attempts_ssh payload(0,7) -m bin 5353482d322e30
+
+          use_backend ssh if !HTTP
+          use_backend ssh if client_attempts_ssh
+          use_backend secure_http if HTTP
+    '';
   };
 
   environment.systemPackages = with pkgs ; [
