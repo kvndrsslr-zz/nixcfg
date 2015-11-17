@@ -13,6 +13,10 @@
 
       # haskell710 = (pkgs.haskellngPackages.ghcWithPackages (self: [ self.cabal-install ]));
 
+      lts311 = (pkgs.haskell.packages.lts-3_11.override {
+        overrides = config.haskellPackageOverrides or (self: super: {});
+      }).ghcWithPackages (self: [ self.cabal-install self.stack]);
+
       haskell710 = (pkgs.haskell.packages.ghc7102.override {
         overrides = config.haskellPackageOverrides or (self: super: {});
       }).ghcWithPackages (self: [ self.cabal-install ]);
