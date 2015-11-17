@@ -159,6 +159,10 @@ rec {
     '';
   };
 
+  services.locate = {
+    enable = true;
+  };
+
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo

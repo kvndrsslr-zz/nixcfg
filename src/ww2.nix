@@ -124,6 +124,10 @@ rec {
     }
   ];
 
+  services.locate = {
+    enable = true;
+  };
+
   hardware = {
     pulseaudio.enable = true;
   };
