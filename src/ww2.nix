@@ -172,13 +172,8 @@ rec {
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     (devenv {
-      name = "dev-h78";
-      extraPkgs = [ haskell78 ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
-    (devenv {
-      name = "dev-lts311";
-      extraPkgs = [ lts311 ]
+      name = "dev-lts221";
+      extraPkgs = [ lts221 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     mercurial
