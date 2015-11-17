@@ -116,6 +116,14 @@ rec {
     };
   };
 
+  services.autossh.sessions = [
+    {
+      name = "vps";
+      user = "smironov";
+      extraArguments = "-N -D4343 vps";
+    }
+  ];
+
   hardware = {
     pulseaudio.enable = true;
   };
