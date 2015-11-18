@@ -108,6 +108,21 @@ in pkgs.writeText "myprofile.sh" ''
     fi
   }
 
+  my_ghc_cmd() {(
+    cmd=$1
+    shift
+    export LANG=en_US.UTF8
+    if [ -d .cabal-sandbox ] ; then
+      echo "Using cabal sandbox configs" .cabal-sandbox/*-packages.conf.d >&2
+      exec "$cmd" -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d "$@"
+    else
+      exec "$cmd" "$@"
+    fi
+  )}
+
+  ghc() { my_ghc_cmd ghc "$@"; }
+  ghci() { my_ghc_cmd ghci "$@"; }
+
   ${if extra != null then extra else ""}
 ''
 
