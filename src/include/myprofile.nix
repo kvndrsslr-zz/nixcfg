@@ -123,6 +123,8 @@ in pkgs.writeText "myprofile.sh" ''
   ghc() { my_ghc_cmd ghc "$@"; }
   ghci() { my_ghc_cmd ghci "$@"; }
 
+  nix-unpack() { nix-build '<nixpkgs>' -A $1.src --no-out-link | grep /nix/store | xargs ${atool}/bin/aunpack ; }
+
   ${if extra != null then extra else ""}
 ''
 
