@@ -80,6 +80,7 @@ in
   environment.etc."template_gdbinit".source = ../cfg/gdbinit;
   environment.etc."template_vimperatorrc".source = ../cfg/vimperatorrc;
   environment.etc."template_screenrc".source = ../cfg/screenrc;
+  environment.etc."template_gitconfig".source = ../cfg/gitconfig;
 
   nixpkgs.config = {
     packageOverrides = pkgs : {
