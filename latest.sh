@@ -16,7 +16,12 @@ set -e
 cd `dirname $0`/nixpkgs
 b=`git rev-parse --abbrev-ref HEAD`
 crev=`git merge-base $b origin/master`
-echo `git log --oneline $crev..$rev | wc -l` commits between the current merge-base $crev and $rev
+
+gitlog() {
+  git log --oneline $crev..$rev
+}
+ncomm=`{ gitlog || { git fetch ; gitlog ; }  }  | wc -l`
+echo "$ncomm commits between the current merge-base `echo $crev | cut -c 1-7` and $rev" >&2
 )
 
 
