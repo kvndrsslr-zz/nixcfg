@@ -168,6 +168,9 @@ rec {
         extraArguments="-N -D4343 vps";
       }
     ];
+
+  services.locate = {
+    enable = true;
   };
 
   environment.systemPackages = with pkgs ; [

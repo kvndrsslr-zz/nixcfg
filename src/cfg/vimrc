@@ -350,3 +350,26 @@ autocmd QuickFixCmdPost *grep* cwindow
 " :au BufReadPost *   let g:aaa = "AAA"
 " :au BufReadPost * endif
 
+" Cyclic tag navigation
+let g:rt_cw = ''
+function! RT()
+    let cw = expand('<cword>')
+    try
+        if cw != g:rt_cw
+            execute 'tag ' . cw
+            call search(cw,'c',line('.'))
+        else
+            try
+                execute 'tnext'
+            catch /.*/
+                execute 'trewind'
+            endtry
+            call search(cw,'c',line('.'))
+        endif
+        let g:rt_cw = cw
+    catch /.*/
+        echo "no tags on " . cw
+    endtry
+endfunction
+map <C-]> :call RT()<CR>
+

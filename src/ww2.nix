@@ -116,6 +116,18 @@ rec {
     };
   };
 
+  services.autossh.sessions = [
+    {
+      name = "vps";
+      user = "smironov";
+      extraArguments = "-N -D4343 vps";
+    }
+  ];
+
+  services.locate = {
+    enable = true;
+  };
+
   hardware = {
     pulseaudio.enable = true;
   };
@@ -160,13 +172,8 @@ rec {
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     (devenv {
-      name = "dev-h78";
-      extraPkgs = [ haskell78 ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
-    (devenv {
-      name = "dev-h74";
-      extraPkgs = [ haskell74 ]
+      name = "dev-lts221";
+      extraPkgs = [ lts221 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     mercurial
