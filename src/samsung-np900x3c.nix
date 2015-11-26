@@ -159,6 +159,17 @@ rec {
     '';
   };
 
+  services.autossh = {
+    sessions = [
+      {
+        name="vps";
+        user="grwlf";
+        monitoringPort = 20000;
+        extraArguments="-N -D4343 vps";
+      }
+    ];
+  };
+
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo
