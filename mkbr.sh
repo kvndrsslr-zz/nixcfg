@@ -14,7 +14,7 @@ set -e
 if test -z "$@" ; then
   # cmts=`git rev-parse HEAD`
   crev=`git merge-base HEAD origin/master`
-  cmts=`git log --oneline $crev..HEAD | awk '{print $1}'`
+  cmts=`git log --reverse --oneline $crev..HEAD | awk '{print $1}'`
 else
   cmts=`git rev-parse "$@"`
 fi
@@ -32,6 +32,7 @@ base=`git merge-base "$cb" origin/master`
 { git branch $bname $base || echo "$ME: branch $bname exists? Well, OK" ; }
 git checkout "$bname"
 git cherry-pick $cmts
+git rebase -i $base
 git checkout "$cb"
 ) >&2
 
