@@ -18,6 +18,7 @@ rec {
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
       ./include/wheel.nix
+      ./include/ntpd.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
@@ -59,11 +60,6 @@ rec {
 
   networking.firewall = {
     enable = false;
-  };
-
-  services.ntp = {
-    enable = true;
-    servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
   };
 
   services.openssh = {

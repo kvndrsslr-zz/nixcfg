@@ -19,6 +19,7 @@ rec {
     ./include/user-grwlf.nix
     ./include/syncthing.nix
     ./include/wheel.nix
+    ./include/ntpd.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -49,9 +50,6 @@ rec {
   services.openssh.permitRootLogin = "yes";
   services.openssh.gatewayPorts = "yes";
   services.openssh.forwardX11 = true;
-
-  services.ntp.enable = true;
-  services.ntp.servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
 
   services.postgresql = {
     enable = true;

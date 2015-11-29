@@ -19,6 +19,7 @@ rec {
       ./include/firefox-with-localization.nix
       ./include/syncthing.nix
       ./include/wheel.nix
+      ./include/ntpd.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_14;
@@ -74,11 +75,6 @@ rec {
 
   powerManagement = {
     enable = true;
-  };
-
-  services.ntp = {
-    enable = true;
-    servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
   };
 
   services.openssh = {

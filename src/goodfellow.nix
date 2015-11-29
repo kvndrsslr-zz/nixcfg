@@ -4,6 +4,7 @@
 
 {
   require = [
+    /etc/nixos/hardware-configuration.nix
     ./include/bashrc.nix
     ./include/systools.nix
     ./include/security.nix
@@ -12,7 +13,7 @@
     ./include/templatecfg.nix
     ./include/xfce-overrides.nix
     ./include/firefox-with-localization.nix
-    /etc/nixos/hardware-configuration.nix
+    ./include/ntpd.nix
   ];
 
   hardware.pulseaudio.enable = true;
@@ -66,11 +67,6 @@
   services.openssh.permitRootLogin = "yes";
   services.openssh.passwordAuthentication = true;
   services.openssh.ports = [ 22 2222 ];
-
-  services.ntp = {
-    enable = true;
-    servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
-  };
 
   services.xserver = {
     enable = true;
