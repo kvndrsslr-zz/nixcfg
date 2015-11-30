@@ -19,6 +19,7 @@ rec {
       ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
+      ./include/syncthing.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
