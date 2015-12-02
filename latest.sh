@@ -2,7 +2,7 @@
 
 me=`basename $0`
 
-rev=`wget -q  --output-document - http://releases.nixos.org/nixos/unstable/ |
+rev=`curl http://releases.nixos.org/nixos/unstable/ 2>/dev/null |
   sed -n 's/.*pre.*\.\([a-z0-9]\+\)\/.*/\1/g p' | tail -n 1`
 
 if test -z "$rev" ; then
