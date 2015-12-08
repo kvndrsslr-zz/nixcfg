@@ -221,6 +221,8 @@ rec {
       jre = true;
       enableAdobeFlash = true;
     };
+    sox.enableLame = true;
   };
+
 }
 
