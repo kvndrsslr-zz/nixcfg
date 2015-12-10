@@ -179,23 +179,25 @@ rec {
     glxinfo
     xcompmgr
     zathura
-    mplayer
     xlibs.xev
     xfontsel
     xlsfonts
     djvulibre
     wine
-    vlc
     libreoffice
     pidgin
-    gimp_2_8
     skype
     networkmanagerapplet
     pavucontrol
     qbittorrent
     cups
+    mlton
+    i7z
 
-    mercurial
+    vlc
+    sox
+    smplayer
+    mplayer
 
     (devenv {
       name = "dev";
@@ -203,25 +205,19 @@ rec {
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
 
-    # (devenv {
-    #   name = "dev78";
-    #   extraPkgs = [ haskell78 ]
-    #     ++ lib.optionals services.xserver.enable devlibs_x11;
-    # })
-
     imagemagickBig
-    smplayer
     geeqie
+    gimp_2_8
   ];
 
   nixpkgs.config = {
+    sox.enableLame = true;
     allowBroken = true;
     allowUnfree = true;
     chrome = {
       jre = true;
       enableAdobeFlash = true;
     };
-    sox.enableLame = true;
   };
 
 }

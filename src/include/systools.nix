@@ -30,23 +30,27 @@
     acpid
     upower
     smartmontools
-    tig
     figlet
     manpages
     hdparm
     tree
     curlFull
     usbutils
-    sox
     stunnel
-    swaks
     usbutils
+    swaks
+    which
+    socat
+    lsof
+    minicom
 
     mc
     htop
     gitAndTools.gitFull
     ctags
     subversion
+    tig
+    mercurial
   ];
 
 }

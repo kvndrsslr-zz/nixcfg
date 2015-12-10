@@ -173,24 +173,16 @@ rec {
       extraPkgs = [ lts221 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
-    mercurial
     unetbootin
-    manpages
-    socat
     dmidecode
     xscreensaver
     wireshark
-    tig
     pv
     mlton
-    minicom
-    lsof
-    i7z
-    hdparm
     ruby
     pv
-    figlet
     bvi
+    i7z
   ];
 
   nixpkgs.config = {

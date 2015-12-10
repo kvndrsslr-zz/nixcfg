@@ -129,18 +129,14 @@ rec {
   };
 
   environment.systemPackages = with pkgs ; [
-    mlton
-    mercurial
     vimHugeX
     (devenv {
       name = "dev";
       extraPkgs = [ haskell710 ];
     })
-    tig
-    which
     postgresql
     imagemagick
-    swaks
+    mlton
   ];
 
   nixpkgs.config = {
