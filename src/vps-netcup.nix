@@ -114,7 +114,7 @@ rec {
           timeout server 2h
 
       frontend ssl
-          bind hit.msk.ru:443 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
+          bind 0.0.0.0:443 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
           mode tcp
           option tcplog
           tcp-request inspect-delay 5s
