@@ -125,6 +125,8 @@ rec {
     enable = true;
   };
 
+  services.syncthing.all_proxy = "socks5://127.0.0.1:4343";
+
   hardware = {
     pulseaudio.enable = true;
   };
