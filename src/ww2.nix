@@ -3,6 +3,12 @@
 
 { config, pkgs, ... }:
 
+let
+
+  me = "smironov";
+  proxyport = "4343";
+
+in
 rec {
   require = [
       /etc/nixos/hardware-configuration.nix
@@ -19,7 +25,7 @@ rec {
       ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
-      ./include/syncthing.nix
+      # ./include/syncthing.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
@@ -116,8 +122,8 @@ rec {
   services.autossh.sessions = [
     {
       name = "vps";
-      user = "smironov";
-      extraArguments = "-N -D4343 vps";
+      user = me;
+      extraArguments = "-N -D${proxyport} vps";
     }
   ];
 
@@ -125,7 +131,12 @@ rec {
     enable = true;
   };
 
-  services.syncthing.all_proxy = "socks5://127.0.0.1:4343";
+  services.syncthing ={
+    enable = true;
+    user = me;
+    all_proxy = "socks5://127.0.0.1:${proxyport}";
+    dataDir = "/var/lib/syncthing-${me}";
+  };
 
   hardware = {
     pulseaudio.enable = true;
