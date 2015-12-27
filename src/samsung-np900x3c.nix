@@ -2,6 +2,11 @@
 # or the NixOS manual available on virtual console 8 (Alt+F8).
 
 { config, pkgs, ... }:
+let
+
+  me = "grwlf";
+
+in
 
 rec {
   require = [
@@ -17,7 +22,7 @@ rec {
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
       ./include/firefox-with-localization.nix
-      ./include/syncthing.nix
+      # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
     ];
@@ -159,7 +164,7 @@ rec {
     sessions = [
       {
         name="vps";
-        user="grwlf";
+        user=me;
         monitoringPort = 20000;
         extraArguments="-N -D4343 vps";
       }
@@ -168,6 +173,12 @@ rec {
 
   services.locate = {
     enable = true;
+  };
+
+  services.syncthing ={
+    enable = true;
+    user = me;
+    dataDir = "/var/lib/syncthing-${me}";
   };
 
   environment.systemPackages = with pkgs ; [
