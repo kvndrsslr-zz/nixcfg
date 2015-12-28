@@ -181,6 +181,12 @@ rec {
     dataDir = "/var/lib/syncthing-${me}";
   };
 
+  # security = {
+  #   pam = {
+  #     enableEncfs = true;
+  #   };
+  # };
+
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo
