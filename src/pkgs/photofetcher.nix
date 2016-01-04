@@ -1,6 +1,6 @@
 { stdenv, bash, writeText, coreutils, gnugrep, gnused, findutils, systemd,
 udisks2, yad, imagemagick }:
-let 
+let
   mkscript = path : text : ''
     mkdir -pv `dirname ${path}`
     cat > ${path} <<"EOF"
@@ -119,7 +119,7 @@ let
 
     if ! test "$?" = "0" ; then
       exit 1;
-    fi 
+    fi
 
     if ! test -d "$D" ; then
       die "Нельзя переместить файлы в эту директорию ($D)"

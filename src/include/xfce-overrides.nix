@@ -17,12 +17,15 @@
     xfce.xfce4taskmanager
 
     photofetcher
+    handyscripts
   ];
 
   nixpkgs.config = {
     packageOverrides = pkgs : {
 
       photofetcher = pkgs.callPackage ../pkgs/photofetcher.nix {};
+
+      handyscripts = pkgs.callPackage ../pkgs/handyscripts.nix {};
 
       xfce = pkgs.xfce // {
 
