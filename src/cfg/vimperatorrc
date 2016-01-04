@@ -1,10 +1,14 @@
 set editor="urxvt -e vim '+set ft=mail'"
-" set defsearch="duckduckgo"
+set defsearch="duckduckgo"
 set urlseparator=
 set focuscontent
 
-nnoremap j 15j
-nnoremap k 15k
+" nnoremap j 15j
+" nnoremap k 15k
+map j <Down>
+map k <Up>
+map <C-d> <PageDown>
+map <C-u> <PageUp>
 
 "Russian language keyboard mappings (UTF-8){{{
 map ё `
@@ -116,6 +120,7 @@ map <C-a>с :tabopen<cr>:open
 map <C-a>d :tabduplicate<cr>
 map <C-a>в :tabduplicate<cr>
 noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
 map q :tabclose<cr>
 
 " Will focus left tab after closing
