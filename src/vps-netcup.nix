@@ -47,6 +47,10 @@ rec {
         hostName = "gargantua1.0x80.ninja";
         serverAliases = [ "gargantua1.0x80.ninja" ];
         documentRoot = "/www";
+        extraConfig = ''
+          ErrorDocument 404 /404.html
+          ErrorDocument 500 /500.html
+        '';
       }
     ];
   };
