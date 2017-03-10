@@ -39,7 +39,7 @@ rec {
   services.xserver.enable = false;
   
   environment.systemPackages = with pkgs ; [
-    vim-nox
+    vim
   ];
 
   nixpkgs.config = {
