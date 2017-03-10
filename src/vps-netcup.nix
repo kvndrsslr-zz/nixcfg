@@ -23,7 +23,12 @@ rec {
   networking = {
     hostName = "gargantua1";
     wireless.enable = false;
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 443 my_ssh_port ];
+      allowPing = false;
+      logRefusedConnections = true;
+    };
   };
 
   programs.ssh.setXAuthLocation = true;
