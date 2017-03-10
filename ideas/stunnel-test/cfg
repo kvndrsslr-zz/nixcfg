@@ -1,9 +1,0 @@
-cert=/home/grwlf/proj/nixcfg/ideas/stunnel-test/stunnel.pem
-pid=/home/grwlf/proj/nixcfg/ideas/stunnel-test/stunnel.pid
-setuid = grwlf
-setgid = users
-foreground = yes
-output = /dev/stdout
-[ssh]
-accept = 443
-connect = 127.0.0.1:2222
