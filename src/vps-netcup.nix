@@ -28,6 +28,7 @@ rec {
 
   programs.ssh.setXAuthLocation = true;
 
+  services.xserver.enable = false;
   services.openssh = {
     enable = true;
     ports = [ my_ssh_port ];
@@ -36,10 +37,27 @@ rec {
     forwardX11 = true;
   };
 
-  services.xserver.enable = false;
-  
+  services.httpd = {
+    enable = true;
+    enableSSL = false;
+    logPerVirtualHost = true;
+    adminAddr = "admin@0x80.ninja";
+    virtualHosts = [
+      {
+        hostName = "gargantua1.0x80.ninja";
+        serverAliases = [ "gargantua1.0x80.ninja" ];
+        documentRoot = "/www";
+      }
+    ];
+  };
+
   environment.systemPackages = with pkgs ; [
     vim
+    tig
+    htop
+    tcpdump
+    lsof
+    strace
   ];
 
   nixpkgs.config = {
