@@ -10,6 +10,7 @@ in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
+    ./include/user-betaboon.nix
     ./include/ntpd.nix
   ];
 
