@@ -10,136 +10,38 @@ in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    ./include/devenv.nix
-    ./include/haskell.nix
-    ./include/bashrc.nix
-    ./include/systools.nix
-    ./include/postfix_relay.nix
-    ./include/templatecfg.nix
-    ./include/user-grwlf.nix
-    ./include/syncthing.nix
-    ./include/wheel.nix
     ./include/ntpd.nix
   ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    device = "/dev/sda";
+  };
 
-  fileSystems = [
-    { mountPoint = "/home";
-      device = "/dev/disk/by-label/HOME";
-    }
-  ];
-
-  networking.hostName = "vps";
-  networking.wireless.enable = false;
-  networking.firewall.enable = false;
-
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "lat9w-16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+  networking = {
+    hostName = "gargantua1";
+    wireless.enable = false;
+    firewall.enable = false;
+  };
 
   programs.ssh.setXAuthLocation = true;
 
-  services.openssh.enable = true;
-  services.openssh.ports = [my_ssh_port];
-  services.openssh.permitRootLogin = "yes";
-  services.openssh.gatewayPorts = "yes";
-  services.openssh.forwardX11 = true;
-
-  services.postgresql = {
+  services.openssh = {
     enable = true;
-    package = pkgs.postgresql92;
+    ports = [ my_ssh_port ];
+    permitRootLogin = "yes";
+    gatewayPorts = "yes";
+    forwardX11 = true;
   };
 
   services.xserver.enable = false;
-
-  services.httpd = {
-    enable = true;
-    adminAddr = "grrwlf@gmail.com";
-    logPerVirtualHost = true;
-    virtualHosts = [
-      {
-        hostName = "callback.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8080/";
-      }
-      {
-        hostName = "uru.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8081/";
-      }
-      {
-        hostName = "compet.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8082/";
-      }
-      {
-        hostName = "urweb.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8083/";
-      }
-      {
-        hostName = "archerydays.ru";
-        extraConfig = ''
-          ProxyPreserveHost On
-          ProxyRequests Off
-          ServerName www.archerydays.ru
-          ServerAlias archerydays.ru
-          ProxyPassMatch "^/$" http://127.0.0.1:8080/Etab/main
-          ProxyPassMatch "^.*$" http://127.0.0.1:8080
-          ProxyPassReverse / http://127.0.0.1:8080/
-        '';
-      }
-    ];
-  };
-
-
-  services.haproxy = {
-    enable = true;
-    config = ''
-
-      backend secure_http
-          reqadd X-Forwarded-Proto:\ https
-          rspadd Strict-Transport-Security:\ max-age=31536000
-          mode http
-          option httplog
-          option forwardfor
-          server local_http_server 127.0.0.1:80
-
-      backend ssh
-          mode tcp
-          option tcplog
-          server ssh 127.0.0.1:${toString my_ssh_port}
-          timeout server 2h
-
-      frontend ssl
-          bind 0.0.0.0:443 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
-          mode tcp
-          option tcplog
-          tcp-request inspect-delay 5s
-          tcp-request content accept if HTTP
-
-          acl client_attempts_ssh payload(0,7) -m bin 5353482d322e30
-
-          use_backend ssh if !HTTP
-          use_backend ssh if client_attempts_ssh
-          use_backend secure_http if HTTP
-    '';
-  };
-
+  
   environment.systemPackages = with pkgs ; [
-    vimHugeX
-    (devenv {
-      name = "dev";
-      extraPkgs = [ haskell710 ];
-    })
-    postgresql
-    imagemagick
-    mlton
+    vim-nox
   ];
 
   nixpkgs.config = {
-    allowUnfree = true;
+    allowUnfree = false;
   };
 }
