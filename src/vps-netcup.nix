@@ -22,6 +22,7 @@ rec {
 
   networking = {
     hostName = "gargantua1";
+    enableIPv6 = false;
     wireless.enable = false;
     firewall = {
       enable = true;
