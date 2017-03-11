@@ -60,7 +60,44 @@ rec {
 #      }
 #    ];
 #  };
+
+  security.acme = {
+    directory = "/var/www/challenges";
+    certs."gargantua1.0x80.ninja" = {
+      webroot = config.security.acme.directory;
+      email = "admin@0x80.ninja";
+      user = "nginx";
+      group = "nginx";
+      postRun = "systemctl restart nginx.service";
+    };
+  };
+
+  services.nginx = {
     enable = true;
+    httpConfig = ''
+    server {
+      server_name gargantua1.0x80.ninja;
+      listen 80;
+      listen [::]:80;
+
+      location /.well-known/acme-challenge {
+         root /var/www/challenges;
+      }
+
+      location / {
+        return 301 https://$host$request_uri;
+      }
+    }
+    server {
+      server_name gargantua1.0x80.ninja;
+      listen 443 ssl;
+      ssl_certificate     ${config.security.acme.directory}/gargantua1.0x80.ninja/fullchain.pem;
+      ssl_certificate_key ${config.security.acme.directory}/gargantua1.0x80.ninja/key.pem;
+
+      root /var/www/gargantua1.0x80.ninja/;
+    }
+    '';
+  };
 
   services.postgresql = {
     enable = false;
