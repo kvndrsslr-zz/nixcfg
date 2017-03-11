@@ -60,6 +60,16 @@ rec {
     ];
   };
 
+  services.postgresql = {
+    enable = false;
+  };
+
+  services.mattermost = {
+    enable = false;
+    siteUrl = "http://mattermost.0x80.ninja";
+    siteName = "mattermost";
+  };
+
   environment.systemPackages = with pkgs ; [
     vim
     tig
