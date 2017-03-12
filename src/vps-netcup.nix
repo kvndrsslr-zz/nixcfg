@@ -21,9 +21,18 @@ rec {
   };
 
   networking = {
-    hostName = "gargantua1";
     enableIPv6 = false;
     wireless.enable = false;
+    hostName = "gargantua1";
+    domain = "0x80.ninja";
+    search = [ "0x80.ninja" "gargantua1.0x80.ninja" ];
+    # server-list: http://servers.opennicproject.org/
+    # using opennic-servers with the following qualities:
+    # - close to our location
+    # - LogAnon + !Whitelist + DNScrypt
+    # TODO configure dnscrypt
+    nameservers = [ "130.255.73.90" ];
+
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 443 my_ssh_port ];
