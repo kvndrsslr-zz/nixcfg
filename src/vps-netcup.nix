@@ -65,14 +65,14 @@ rec {
     directory = "/var/www/challenges";
     certs = {
       "0x80.ninja" = {
-        webroot = config.security.acme.directory;
+        webroot = "/var/www/0x80.ninja";
         email = "admin@0x80.ninja";
         user = "nginx";
         group = "nginx";
         postRun = "systemctl restart nginx.service";
       };
       "gargantua1.0x80.ninja" = {
-        webroot = config.security.acme.directory;
+        webroot = "/var/www/gargantua1.0x80.ninja";
         email = "admin@0x80.ninja";
         user = "nginx";
         group = "nginx";
