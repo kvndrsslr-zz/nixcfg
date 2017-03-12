@@ -47,18 +47,14 @@ rec {
     directory = "/var/www/challenges";
     certs = {
       "0x80.ninja" = {
-        webroot = "/var/www/0x80.ninja";
+        webroot = config.security.acme.directory;
         email = "admin@0x80.ninja";
         user = "nginx";
         group = "nginx";
         postRun = "systemctl restart nginx.service";
-      };
-      "gargantua1.0x80.ninja" = {
-        webroot = "/var/www/gargantua1.0x80.ninja";
-        email = "admin@0x80.ninja";
-        user = "nginx";
-        group = "nginx";
-        postRun = "systemctl restart nginx.service";
+        extraDomains = {
+          "gargantua1.0x80.ninja" = null;
+        };
       };
     };
   };
@@ -80,18 +76,18 @@ rec {
       }
     }
     server {
-      server_name gargantua1.0x80.ninja;
-      listen 443 ssl;
-      ssl_certificate     ${config.security.acme.directory}/gargantua1.0x80.ninja/fullchain.pem;
-      ssl_certificate_key ${config.security.acme.directory}/gargantua1.0x80.ninja/key.pem;
-      root /var/www/gargantua1.0x80.ninja/;
-    }
-    server {
       server_name 0x80.ninja;
       listen 443 ssl;
       ssl_certificate     ${config.security.acme.directory}/0x80.ninja/fullchain.pem;
       ssl_certificate_key ${config.security.acme.directory}/0x80.ninja/key.pem;
       root /var/www/0x80.ninja/;
+    }
+    server {
+      server_name gargantua1.0x80.ninja;
+      listen 443 ssl;
+      ssl_certificate     ${config.security.acme.directory}/0x80.ninja/fullchain.pem;
+      ssl_certificate_key ${config.security.acme.directory}/0x80.ninja/key.pem;
+      root /var/www/gargantua1.0x80.ninja/;
     }
     '';
   };
