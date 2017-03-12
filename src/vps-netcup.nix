@@ -69,6 +69,7 @@ rec {
         group = "nginx";
         postRun = "systemctl restart nginx.service";
         extraDomains = {
+          "test.gargantua1.0x80.ninja" = null;
         };
       };
     };
@@ -88,7 +89,6 @@ rec {
         location /.well-known/acme-challenge {
            root /var/www/challenges;
         }
-
         location / {
           return 301 https://$host$request_uri;
         }
@@ -106,6 +106,15 @@ rec {
         ssl_certificate     ${config.security.acme.directory}/gargantua1.0x80.ninja/fullchain.pem;
         ssl_certificate_key ${config.security.acme.directory}/gargantua1.0x80.ninja/key.pem;
         root /var/www/gargantua1.0x80.ninja/;
+      }
+      server {
+        server_name test.gargantua1.0x80.ninja;
+        listen 443 ssl;
+        ssl_certificate     ${config.security.acme.directory}/gargantua1.0x80.ninja/fullchain.pem;
+        ssl_certificate_key ${config.security.acme.directory}/gargantua1.0x80.ninja/key.pem;
+        location / {
+          proxy_pass http://192.168.100.101:80;
+        }
       }
     '';
   };
