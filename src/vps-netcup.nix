@@ -70,6 +70,10 @@ rec {
 
   services.nginx = {
     enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
     httpConfig = ''
     server {
       server_name gargantua1.0x80.ninja;
