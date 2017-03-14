@@ -12,7 +12,6 @@ rec {
     /etc/nixos/hardware-configuration.nix
     ../../include/users/betaboon.nix
     ../../include/services/ntpd.nix
-    ./services/acme.nix
     ./services/nginx.nix
     ./containers/test.nix
   ];

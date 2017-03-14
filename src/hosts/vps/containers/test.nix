@@ -1,11 +1,22 @@
 { config, lib, pkgs, ... }:
-{
+let
 
-  containers.test = {
+  hostname = "test";
+
+in{
+
+  containers."${hostname}" = {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "192.168.100.100";
     localAddress = "192.168.100.101";
+
+    bindMounts = {
+      "/webroot" = { 
+        hostPath = "/var/www/static-page";
+        isReadOnly = true; 
+        };
+    };
 
     config = { config, pkgs, ...}: {
       networking.firewall = {
@@ -14,13 +25,10 @@
       };
       services.nginx = {
         enable = true;
-        httpConfig = ''
-          server {
-            listen 80;
-            server_name test;
-            root /var/www/;
-          }
-        '';
+        virtualHosts."${hostname}" = {
+          enableSSL = false;
+          root = "/webroot";
+        };
       };
     };
   };
