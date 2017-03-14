@@ -14,6 +14,7 @@ rec {
     ../../include/services/ntpd.nix
     ./services/nginx.nix
     ./containers/test.nix
+    ./containers/nextcloud.nix
   ];
 
   boot.loader.grub = {
