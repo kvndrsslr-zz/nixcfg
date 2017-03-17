@@ -50,9 +50,7 @@ rec {
   services.openssh = {
     enable = true;
     ports = [ my_ssh_port ];
-    permitRootLogin = "yes";
-    gatewayPorts = "yes";
-    forwardX11 = true;
+    permitRootLogin = "no";
   };
 
   environment.systemPackages = with pkgs ; [
