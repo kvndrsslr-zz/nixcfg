@@ -10,8 +10,9 @@ in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    ../../include/users/betaboon.nix
-    ../../include/services/ntpd.nix
+    ../../users/betaboon.nix
+    ../../services/ntpd.nix
+    ../../programs/zsh.nix
     ./services/nginx.nix
     ./containers/test.nix
     ./containers/nextcloud.nix
