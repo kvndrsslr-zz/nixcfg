@@ -23,13 +23,6 @@
           proxyPass = "http://192.168.100.101";
         };
       };
-      "nextcloud.gargantua1.0x80.ninja" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://192.168.101.101";
-        };
-      };
     };
   };
 

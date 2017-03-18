@@ -15,7 +15,6 @@ rec {
     ../../programs/zsh.nix
     ./services/nginx.nix
     ./containers/test.nix
-    ./containers/nextcloud.nix
   ];
 
   boot.loader.grub = {
