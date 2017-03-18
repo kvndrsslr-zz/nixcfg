@@ -46,6 +46,8 @@ rec {
   };
 
   programs.ssh.setXAuthLocation = true;
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   services.xserver.enable = false;
   services.openssh = {
