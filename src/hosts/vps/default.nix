@@ -15,6 +15,7 @@ rec {
     ../../programs/zsh.nix
     ./services/nginx.nix
     ./containers/test.nix
+    ./containers/znc.nix
   ];
 
   boot.loader.grub = {
@@ -41,6 +42,14 @@ rec {
       allowedTCPPorts = [ 80 443 my_ssh_port ];
       allowPing = false;
       logRefusedConnections = true;
+    };
+
+    nat = {
+      enable = true;
+      externalInterface = "enp0s3";
+      forwardPorts = [
+        { sourcePort = 5000; destination = "192.168.102.101:5000"; }
+      ];
     };
   };
 
