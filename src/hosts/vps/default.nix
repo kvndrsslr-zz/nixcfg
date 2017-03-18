@@ -59,9 +59,11 @@ rec {
     vim
     tig
     htop
-    tcpdump
     lsof
     strace
+    nmap
+    tcpdump
+    iftop
   ];
 
   nixpkgs.config = {
