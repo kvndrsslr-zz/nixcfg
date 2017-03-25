@@ -14,8 +14,13 @@ rec {
     ../../services/ntpd.nix
     ../../programs/zsh.nix
     ./services/nginx.nix
-    ./containers/test.nix
-    ./containers/nextcloud.nix
+#   ./containers/nameserver.nix    # TODO setup unbound
+#   ./containers/reverse-proxy.nix # TODO move nginx to container
+    ./containers/test.nix          # nginx serving static
+#   ./containers/mattermost.nix    # TODO setup mattermost
+#   ./containers/nextcloud.nix     # TODO setup nextcloud
+#   ./containers/taiga.nix         # TODO setup taiga
+#   ./containers/znc.nix           # TODO setup znc
   ];
 
   boot.loader.grub = {
@@ -43,6 +48,12 @@ rec {
       allowPing = false;
       logRefusedConnections = true;
     };
+
+    nat = {
+      enable = false;
+      externalInterface = "enp0s3";
+      forwardPorts = [];
+    };
   };
 
   programs.ssh.setXAuthLocation = true;
@@ -60,9 +71,11 @@ rec {
     vim
     tig
     htop
-    tcpdump
     lsof
     strace
+    nmap
+    tcpdump
+    iftop
   ];
 
   nixpkgs.config = {
