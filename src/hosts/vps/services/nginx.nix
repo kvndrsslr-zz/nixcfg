@@ -23,13 +23,6 @@
           proxyPass = "http://192.168.100.101";
         };
       };
-      "znc.gargantua1.0x80.ninja" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://192.168.104.101:5000";
-        };
-      };
     };
   };
 
