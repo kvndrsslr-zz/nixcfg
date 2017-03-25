@@ -8,8 +8,8 @@ in{
   containers."${hostname}" = {
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.102.100";
-    localAddress = "192.168.102.101";
+    hostAddress = "192.168.104.100";
+    localAddress = "192.168.104.101";
 
     config = { config, pkgs, ...}: {
       networking.firewall = {

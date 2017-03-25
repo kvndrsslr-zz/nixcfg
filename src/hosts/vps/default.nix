@@ -14,13 +14,13 @@ rec {
     ../../services/ntpd.nix
     ../../programs/zsh.nix
     ./services/nginx.nix
-    ./containers/test.nix
-#   ./containers/reverse-proxy.nix # nginx-reverse-proxy TODO move nginx to container
-#   ./containers/nameserver.nix # nameserver TODO unbound
-#   ./containers/znc.nix # ircbouncer TODO znc
-#   ./containers/mattermost.nix # slack-alt TODO mattermost
-#   ./containers/taiga.nix # scrum+kanban TODO taiga
-#   ./containers/nextcloud.nix # TODO nextcloud
+#   ./containers/nameserver.nix    # TODO setup unbound
+#   ./containers/reverse-proxy.nix # TODO move nginx to container
+    ./containers/test.nix          # nginx serving static
+#   ./containers/mattermost.nix    # TODO setup mattermost
+#   ./containers/nextcloud.nix     # TODO setup nextcloud
+#   ./containers/taiga.nix         # TODO setup taiga
+#   ./containers/znc.nix           # TODO setup znc
   ];
 
   boot.loader.grub = {
@@ -50,10 +50,9 @@ rec {
     };
 
     nat = {
-      enable = true;
+      enable = false;
       externalInterface = "enp0s3";
-      forwardPorts = [
-      ];
+      forwardPorts = [];
     };
   };
 
