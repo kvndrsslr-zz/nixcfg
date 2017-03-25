@@ -8,6 +8,8 @@ let
   self = {
     pkgconfig = callPackage ../nixpkgs/pkgs/development/tools/misc/pkgconfig { };
   
+    taiga-back = callPackage ./pkgs/taiga/taiga-back.nix { };
+    taiga-front = callPackage ./pkgs/taiga/taiga-front.nix { };
   };
 in
 self
