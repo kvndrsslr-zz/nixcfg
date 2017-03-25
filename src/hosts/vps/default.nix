@@ -20,7 +20,7 @@ rec {
 #   ./containers/mattermost.nix    # TODO setup mattermost
 #   ./containers/nextcloud.nix     # TODO setup nextcloud
 #   ./containers/taiga.nix         # TODO setup taiga
-#   ./containers/znc.nix           # TODO setup znc
+    ./containers/znc.nix           # TODO setup znc
   ];
 
   boot.loader.grub = {

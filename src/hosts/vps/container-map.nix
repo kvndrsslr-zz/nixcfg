@@ -25,7 +25,7 @@ let
 #   { hostName = "mattermost";    subnet = 101; reverseProxy = 8065; acme = true; };
 #   { hostName = "nextcloud";     subnet = 102; reverseProxy =   80; acme = true; };
 #   { hostName = "taiga";         subnet = 103; reverseProxy =   80; acme = true; };
-#   { hostName = "znc";           subnet = 104; reverseProxy = 5000; acme = true; portForward = 5000 }; # reverse+nat on same port, does this make sense ? oO
+    { hostName = "znc";           subnet = 104; reverseProxy = 5000; acme = true; portForward = 5000 }; # reverse+nat on same port, does this make sense ? oO
   ];
 
 in {
