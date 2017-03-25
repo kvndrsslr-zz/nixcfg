@@ -17,7 +17,7 @@ rec {
 #   ./containers/nameserver.nix    # TODO setup unbound
 #   ./containers/reverse-proxy.nix # TODO move nginx to container
     ./containers/test.nix          # nginx serving static
-#   ./containers/mattermost.nix    # TODO setup mattermost
+    ./containers/mattermost.nix    # TODO setup mattermost
 #   ./containers/nextcloud.nix     # TODO setup nextcloud
 #   ./containers/taiga.nix         # TODO setup taiga
 #   ./containers/znc.nix           # TODO setup znc
