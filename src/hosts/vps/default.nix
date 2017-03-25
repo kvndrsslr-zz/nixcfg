@@ -15,6 +15,12 @@ rec {
     ../../programs/zsh.nix
     ./services/nginx.nix
     ./containers/test.nix
+#   ./containers/reverse-proxy.nix # nginx-reverse-proxy TODO move nginx to container
+#   ./containers/nameserver.nix # nameserver TODO unbound
+#   ./containers/znc.nix # ircbouncer TODO znc
+#   ./containers/mattermost.nix # slack-alt TODO mattermost
+#   ./containers/taiga.nix # scrum+kanban TODO taiga
+#   ./containers/nextcloud.nix # TODO nextcloud
   ];
 
   boot.loader.grub = {
