@@ -16,13 +16,6 @@
         serverAliases = [ "gargantua1.0x80.ninja" ];
         root = /var/www/static-page;
       };
-      "test.gargantua1.0x80.ninja" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://192.168.100.101";
-        };
-      };
       "mattermost.gargantua1.0x80.ninja" = {
         forceSSL = true;
         enableACME = true;
