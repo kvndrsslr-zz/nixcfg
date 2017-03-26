@@ -9,7 +9,7 @@ let
   localAddress = "192.168.101.101";
 
 in{
-  services.nginx.virtualHosts."${fqdn}" = {
+  services.nginx.virtualHosts."${hostName}" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
