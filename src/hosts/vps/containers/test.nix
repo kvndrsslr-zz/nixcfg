@@ -18,7 +18,7 @@ in{
     };
   };
 
-  containers."${fqdn}" = {
+  containers."${hostName}" = {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "${hostAddress}";
