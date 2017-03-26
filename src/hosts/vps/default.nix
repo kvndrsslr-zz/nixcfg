@@ -13,9 +13,7 @@ rec {
     ../../users/betaboon.nix
     ../../services/ntpd.nix
     ../../programs/zsh.nix
-    ./services/nginx.nix
 #   ./containers/nameserver.nix    # TODO setup unbound
-#   ./containers/reverse-proxy.nix # TODO move nginx to container
     ./containers/test.nix          # nginx serving static
     ./containers/mattermost.nix    # TODO setup mattermost
 #   ./containers/nextcloud.nix     # TODO setup nextcloud
@@ -56,16 +54,34 @@ rec {
     };
   };
 
-  programs.ssh.setXAuthLocation = true;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
   services.xserver.enable = false;
   services.openssh = {
     enable = true;
     ports = [ my_ssh_port ];
     permitRootLogin = "no";
   };
+
+  services.nginx = {
+    enable = true;
+
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+    virtualHosts = {
+      "0x80.ninja" = {
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [ "gargantua1.0x80.ninja" ];
+        root = /var/www/static-page;
+      };
+    };
+  };
+
+  programs.ssh.setXAuthLocation = true;
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs ; [
     vim
@@ -82,3 +98,4 @@ rec {
     allowUnfree = false;
   };
 }
+
