@@ -76,7 +76,10 @@ in{
       services.mattermost = {
         enable = true;
         siteUrl = "https://${fqdn}"; #TODO this should be more generic
-        localDatabaseCreate = false;
+        
+        localDatabaseCreate = false; #FIXME this should not be required.
+        # Currently I am having problems using the automatic sql setup.
+        # It runs into all sorts of problems.
       };
     };
   };
