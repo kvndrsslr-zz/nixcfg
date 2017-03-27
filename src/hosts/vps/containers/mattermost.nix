@@ -9,7 +9,7 @@ let
   localAddress = "192.168.101.101";
 
 in{
-  services.nginx.virtualHosts."${hostName}" = {
+  services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
@@ -50,11 +50,11 @@ in{
     };
   };
 
-  containers."${fqdn}" = {
+  containers."${hostName}" = {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "${hostAddress}";
-    localAddress = ${localAddress}";
+    localAddress = "${localAddress}";
 
     config = { config, pkgs, ...}: {
       networking.enableIPv6 = false;
@@ -65,8 +65,10 @@ in{
         ];
       };
       services.postgresql = {
-        enable = true;
+        enable = pkgs.lib.mkForce true;
         authentication = pkgs.lib.mkForce ''
+          local  all all trust
+          local  all all trust
           host  all all 127.0.0.1/32 trust
           host  all all ::1/128      trust
         '';
@@ -74,6 +76,7 @@ in{
       services.mattermost = {
         enable = true;
         siteUrl = "https://${fqdn}"; #TODO this should be more generic
+        localDatabaseCreate = false;
       };
     };
   };
