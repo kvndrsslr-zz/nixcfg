@@ -66,21 +66,45 @@ in{
       };
       services.postgresql = {
         enable = pkgs.lib.mkForce true;
+        enableTCPIP = true;
         authentication = pkgs.lib.mkForce ''
           local  all all trust
           local  all all trust
           host  all all 127.0.0.1/32 trust
           host  all all ::1/128      trust
         '';
+        extraConfig = ''
+          log_line_prefix = '[%p] [%c] [%m] [%x]: '
+          log_statement = 'all'
+        '';
       };
       services.mattermost = {
         enable = true;
         siteUrl = "https://${fqdn}"; #TODO this should be more generic
+        extraConfig = {
+          RateLimitSettings.MemoryStoreSize = 1000;
+          SqlSettings = {
+            MaxOpenConns = 200;
+            Trace = true;
+          };
+          ServiceSettings = {
+            EnableTesting = true;
+            EnableLinkPreviews = true;
+          };
+        };
         
         localDatabaseCreate = false; #FIXME this should not be required.
         # Currently I am having problems using the automatic sql setup.
         # It runs into all sorts of problems.
       };
+      environment.systemPackages = with pkgs; [
+        lsof
+        strace
+        python
+        htop
+        screen
+        vim
+      ];
     };
   };
 
