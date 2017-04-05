@@ -8,7 +8,68 @@ let
   hostAddress = "192.168.101.100";
   localAddress = "192.168.101.101";
 
+  databaseHost = "192.168.102.101";
+  databasePort = "5432";
+  databaseName = "mattermost";
+  databaseUser = "mmuser";
+
 in{
+  containers."${hostName}" = {
+    autoStart = true;
+
+    privateNetwork = true;
+    hostAddress = "${hostAddress}";
+    localAddress = "${localAddress}";
+
+    config = { config, pkgs, ...}: {
+      networking = {
+        enableIPv6 = false;
+
+        firewall = {
+          enable = true;
+          allowPing = true;
+          allowedTCPPorts = [
+            8065 # mattermost
+          ];
+        };
+      };
+      services.mattermost = {
+        enable = true;
+        siteUrl = "https://${fqdn}"; #TODO this should be more generic
+        localDatabaseName = "${databaseName}";
+        localDatabaseUser = "${databaseUser}";
+        localDatabasePassword = "${databasePassword}";
+        extraConfig = {
+          RateLimitSettings.MemoryStoreSize = 1000;
+          SqlSettings = {
+            #TODO setup sql-connection to mattermost-db-container
+            DataSource = "postgres://${databaseUser}:${databasePassword}@${databaseHost}:${databasePort}/${databaseName}?sslmode=disable&connect_timeout=10";
+            MaxOpenConns = 200;
+            Trace = true;
+          };
+          ServiceSettings = {
+            EnableTesting = true;
+            EnableLinkPreviews = true;
+          };
+        };
+        
+        localDatabaseCreate = false; #FIXME this should not be required.
+        # Currently I am having problems using the automatic sql setup.
+        # It runs into all sorts of problems.
+      };
+      environment.systemPackages = with pkgs; [
+	#TODO this set of tools should go into a user-profile-kinda-thing
+        lsof
+        strace
+        python
+        htop
+        screen
+        vim
+      ];
+    };
+  };
+
+  # Nginx-reverse-proxy configuration
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = true;
     enableACME = true;
@@ -50,62 +111,5 @@ in{
     };
   };
 
-  containers."${hostName}" = {
-    autoStart = true;
-    privateNetwork = true;
-    hostAddress = "${hostAddress}";
-    localAddress = "${localAddress}";
-
-    config = { config, pkgs, ...}: {
-      networking.enableIPv6 = false;
-      networking.firewall = {
-        enable = true;
-        allowedTCPPorts = [
-          8065 # mattermost
-        ];
-      };
-      services.postgresql = {
-        enable = pkgs.lib.mkForce true;
-        enableTCPIP = true;
-        authentication = pkgs.lib.mkForce ''
-          local  all all trust
-          local  all all trust
-          host  all all 127.0.0.1/32 trust
-          host  all all ::1/128      trust
-        '';
-        extraConfig = ''
-          log_line_prefix = '[%p] [%c] [%m] [%x]: '
-          log_statement = 'all'
-        '';
-      };
-      services.mattermost = {
-        enable = true;
-        siteUrl = "https://${fqdn}"; #TODO this should be more generic
-        extraConfig = {
-          RateLimitSettings.MemoryStoreSize = 1000;
-          SqlSettings = {
-            MaxOpenConns = 200;
-            Trace = true;
-          };
-          ServiceSettings = {
-            EnableTesting = true;
-            EnableLinkPreviews = true;
-          };
-        };
-        
-        localDatabaseCreate = false; #FIXME this should not be required.
-        # Currently I am having problems using the automatic sql setup.
-        # It runs into all sorts of problems.
-      };
-      environment.systemPackages = with pkgs; [
-        lsof
-        strace
-        python
-        htop
-        screen
-        vim
-      ];
-    };
-  };
 
 }
