@@ -13,6 +13,8 @@
       d1  = "du -d1h";
 
       v   = "vi";
+
+      json_pp = "python -m json.tool $1";
     };
   };
 
