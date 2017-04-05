@@ -2,4 +2,4 @@
 
 . ./nixos-paths.sh
 
-nixos-rebuild $1
+nixos-rebuild $@
