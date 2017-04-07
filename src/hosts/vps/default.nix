@@ -15,7 +15,8 @@ rec {
     ../../programs/zsh.nix
 #   ./containers/nameserver.nix    # TODO setup unbound
     ./containers/test.nix          # nginx serving static
-#   ./containers/mattermost.nix    # TODO setup mattermost
+    ./containers/mattermost.nix    # TODO setup mattermost
+    ./containers/mmdb.nix          # TODO setup mattermostdb
 #   ./containers/nextcloud.nix     # TODO setup nextcloud
 #   ./containers/taiga.nix         # TODO setup taiga
 #   ./containers/znc.nix           # TODO setup znc
@@ -42,9 +43,14 @@ rec {
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 443 my_ssh_port ];
-      allowPing = false;
       logRefusedConnections = true;
+
+      allowPing = true;
+      allowedTCPPorts = [ 80 443 my_ssh_port ];
+
+      extraCommands = ''
+	sysctl net.ipv4.conf.all.forwarding=1
+      '';
     };
 
     nat = {
