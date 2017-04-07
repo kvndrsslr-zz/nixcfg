@@ -12,6 +12,7 @@ let
   databasePort = "5432";
   databaseName = "mattermost";
   databaseUser = "mmuser";
+  databasePassword = import ./mattermost-dbpassword.nix;
 
 in{
   containers."${hostName}" = {
@@ -42,10 +43,8 @@ in{
         extraConfig = {
           RateLimitSettings.MemoryStoreSize = 1000;
           SqlSettings = {
-            #TODO setup sql-connection to mattermost-db-container
             DataSource = "postgres://${databaseUser}:${databasePassword}@${databaseHost}:${databasePort}/${databaseName}?sslmode=disable&connect_timeout=10";
             MaxOpenConns = 200;
-            Trace = true;
           };
           ServiceSettings = {
             EnableTesting = true;

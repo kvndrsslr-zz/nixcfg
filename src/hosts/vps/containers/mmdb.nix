@@ -31,10 +31,6 @@ in{
         enable = true;
         port = 5432;
         enableTCPIP = true;
-        extraConfig = ''
-          log_line_prefix = '[%p] [%c] [%m] [%x]: '
-          log_statement = 'all'
-        '';
 
         authentication = pkgs.lib.mkForce ''
           local  all all trust
