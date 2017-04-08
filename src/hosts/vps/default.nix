@@ -13,11 +13,10 @@ rec {
     ../../users/betaboon.nix
     ../../services/ntpd.nix
     ../../programs/zsh.nix
-    ./services/nginx.nix
 #   ./containers/nameserver.nix    # TODO setup unbound
-#   ./containers/reverse-proxy.nix # TODO move nginx to container
     ./containers/test.nix          # nginx serving static
-#   ./containers/mattermost.nix    # TODO setup mattermost
+    ./containers/mattermost.nix    # TODO setup mattermost
+    ./containers/mmdb.nix          # TODO setup mattermostdb
 #   ./containers/nextcloud.nix     # TODO setup nextcloud
 #   ./containers/taiga.nix         # TODO setup taiga
 #   ./containers/znc.nix           # TODO setup znc
@@ -44,9 +43,14 @@ rec {
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 443 my_ssh_port ];
-      allowPing = false;
       logRefusedConnections = true;
+
+      allowPing = true;
+      allowedTCPPorts = [ 80 443 my_ssh_port ];
+
+      extraCommands = ''
+	sysctl net.ipv4.conf.all.forwarding=1
+      '';
     };
 
     nat = {
@@ -56,16 +60,34 @@ rec {
     };
   };
 
-  programs.ssh.setXAuthLocation = true;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
   services.xserver.enable = false;
   services.openssh = {
     enable = true;
     ports = [ my_ssh_port ];
     permitRootLogin = "no";
   };
+
+  services.nginx = {
+    enable = true;
+
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+    virtualHosts = {
+      "0x80.ninja" = {
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [ "gargantua1.0x80.ninja" ];
+        root = /var/www/static-page;
+      };
+    };
+  };
+
+  programs.ssh.setXAuthLocation = true;
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs ; [
     vim
@@ -82,3 +104,4 @@ rec {
     allowUnfree = false;
   };
 }
+

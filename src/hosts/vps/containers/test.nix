@@ -1,15 +1,28 @@
 { config, lib, pkgs, ... }:
 let
 
-  hostname = "test";
+  hostName = "test";
+  domainName = "gargantua1.0x80.ninja";
+  fqdn = "${hostName}.${domainName}";
+
+  hostAddress = "192.168.100.100";
+  localAddress = "192.168.100.101";
 
 in{
 
-  containers."${hostname}" = {
+  services.nginx.virtualHosts."${fqdn}" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://${localAddress}";
+    };
+  };
+
+  containers."${hostName}" = {
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.100.100";
-    localAddress = "192.168.100.101";
+    hostAddress = "${hostAddress}";
+    localAddress = "${localAddress}";
 
     bindMounts = {
       "/webroot" = { 
@@ -19,13 +32,14 @@ in{
     };
 
     config = { config, pkgs, ...}: {
+      networking.enableIPv6 = false;
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ 80 ];
       };
       services.nginx = {
         enable = true;
-        virtualHosts."${hostname}" = {
+        virtualHosts."${fqdn}" = {
           enableSSL = false;
           root = "/webroot";
         };
