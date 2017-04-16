@@ -13,13 +13,10 @@ rec {
     ../../users/betaboon.nix
     ../../services/ntpd.nix
     ../../programs/zsh.nix
-#   ./containers/nameserver.nix    # TODO setup unbound
     ./containers/test.nix          # nginx serving static
-    ./containers/mattermost.nix    # TODO setup mattermost
-    ./containers/mmdb.nix          # TODO setup mattermostdb
-#   ./containers/nextcloud.nix     # TODO setup nextcloud
 #   ./containers/taiga.nix         # TODO setup taiga
-#   ./containers/znc.nix           # TODO setup znc
+    ./containers/mattermost.nix
+    ./containers/mmdb.nix
   ];
 
   boot.loader.grub = {
