@@ -14,9 +14,10 @@ rec {
     ../../services/ntpd.nix
     ../../programs/zsh.nix
     ./containers/test.nix          # nginx serving static
-#   ./containers/taiga.nix         # TODO setup taiga
     ./containers/mattermost.nix
     ./containers/mmdb.nix
+    ./containers/taiga.nix         # TODO setup taiga
+    ./containers/taigadb.nix
   ];
 
   boot.loader.grub = {

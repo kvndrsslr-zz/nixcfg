@@ -23,7 +23,8 @@ let
     { hostName = "test";          subnet = 100; reverseProxy =   80; acme = true; };
     { hostName = "mattermost";    subnet = 101; reverseProxy = 8065; acme = true; };
     { hostName = "mmdb";          subnet = 102; };
-#   { hostName = "taiga";         subnet = 103; reverseProxy =   80; acme = true; };
+    { hostName = "taiga";         subnet = 103; reverseProxy =   80; acme = true; };
+    { hostName = "taigadb";       subnet = 104; };
   ];
 
 in {
