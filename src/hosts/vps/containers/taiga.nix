@@ -21,10 +21,22 @@ in{
         allowedTCPPorts = [ 80 ];
       };
 
-      services.taiga-back = {
+      services.taiga = {
         enable = true;
-        databaseHost = "192.168.104.101";
+        inherit fqdn;
+        database.host = "192.168.104.101";
+        front = {
+          apiUrl = "https://${fqdn}/api/v1";
+        };
       };
+    };
+  };
+
+  services.nginx.virtualHosts."${fqdn}" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://${localAddress}";
     };
   };
 
