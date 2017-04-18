@@ -24,6 +24,7 @@ in{
       services.taiga = {
         enable = true;
         inherit fqdn;
+        enablePublicRegistration = false;
         database.host = "192.168.104.101";
         front = {
           apiUrl = "https://${fqdn}/api/v1";
