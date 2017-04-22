@@ -23,13 +23,28 @@ in{
 
       services.taiga = {
         enable = true;
-        inherit fqdn;
         enablePublicRegistration = false;
+        enableFeedback = false;
         database.host = "192.168.104.101";
-        front = {
-          apiUrl = "https://${fqdn}/api/v1";
+        urls = {
+          enableSSL = true;
+          front = "${fqdn}";
+          api = "${fqdn}/api/v1";
+          static = "${fqdn}/static";
+          media = "${fqdn}/media";
+          events = "${fqdn}/events";
         };
       };
+
+      environment.systemPackages = with pkgs; [
+        lsof
+        strace
+        tcpdump
+        python
+        htop
+        screen
+        vim
+      ];
     };
   };
 
@@ -40,5 +55,4 @@ in{
       proxyPass = "http://${localAddress}";
     };
   };
-
 }
