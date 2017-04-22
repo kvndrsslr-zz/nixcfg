@@ -31,12 +31,14 @@ rec {
     wireless.enable = false;
     hostName = "gargantua1";
     domain = "0x80.ninja";
-    search = [ "0x80.ninja" "gargantua1.0x80.ninja" ];
+    search = [ "gargantua1.0x80.ninja" ];
     # server-list: http://servers.opennicproject.org/
     # using opennic-servers with the following qualities:
     # - close to our location
     # - LogAnon + !Whitelist + DNScrypt
     # TODO configure dnscrypt
+    # FIXME i saw a process using the DNS-server provider by my hoster
+    # maybe it is has been taken from DHCP lease on main interface ?
     nameservers = [ "130.255.73.90" ];
 
     firewall = {
@@ -48,7 +50,7 @@ rec {
     };
 
     nat = {
-      enable = false;
+      enable = true;
       externalInterface = "enp0s3";
       forwardPorts = [];
     };
