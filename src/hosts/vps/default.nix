@@ -45,10 +45,6 @@ rec {
 
       allowPing = true;
       allowedTCPPorts = [ 80 443 my_ssh_port ];
-
-      extraCommands = ''
-	sysctl net.ipv4.conf.all.forwarding=1
-      '';
     };
 
     nat = {
