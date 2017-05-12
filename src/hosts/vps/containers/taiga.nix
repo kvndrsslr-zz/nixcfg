@@ -18,13 +18,13 @@ in{
     config = { config, pkgs, ...}: {
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 80 ];
+        allowedTCPPorts = [ 
+          80 
+        ];
       };
 
       services.taiga = {
         enable = true;
-        enablePublicRegistration = false;
-        enableFeedback = false;
         database.host = "192.168.104.101";
         urls = {
           enableSSL = true;
@@ -53,6 +53,14 @@ in{
     enableACME = true;
     locations."/" = {
       proxyPass = "http://${localAddress}";
+    };
+    locations."/events" = {
+      proxyPass = "http://${localAddress}/events";
+      extraConfig = ''
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+      '';
     };
   };
 }
